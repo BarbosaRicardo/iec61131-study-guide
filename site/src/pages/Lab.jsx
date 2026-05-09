@@ -3,7 +3,9 @@ import ChapterLayout from '../components/ChapterLayout'
 import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
+import Quiz from '../components/Quiz'
 import { ANALOGIES } from '../data/chapters'
+import { QUIZZES } from '../data/quizzes'
 
 export default function Lab() {
   return (
@@ -183,6 +185,10 @@ Verify:
         <li>Build a complete protection logic application: overcurrent trip in ST, breaker failure logic in LD, data quality check in FBD.</li>
         <li>Take the SEL University RTAC configuration course — it covers the ACSELERATOR-specific aspects that go beyond the IEC standard itself.</li>
       </ul>
+
+      {QUIZZES.lab && QUIZZES.lab.length > 0 && (
+        <Quiz chapterId="lab" questions={QUIZZES.lab} level={1} />
+      )}
     </ChapterLayout>
   )
 }

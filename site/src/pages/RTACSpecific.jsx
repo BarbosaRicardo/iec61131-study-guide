@@ -3,7 +3,9 @@ import ChapterLayout from '../components/ChapterLayout'
 import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
+import Quiz from '../components/Quiz'
 import { ANALOGIES } from '../data/chapters'
+import { QUIZZES } from '../data/quizzes'
 
 export default function RTACSpecific() {
   return (
@@ -151,6 +153,10 @@ END_IF;
       <Callout type="pro" title="Build on a Supported RTAC Firmware Version">
         Pick one firmware version for a project and do not change it during development. Upgrading firmware mid-project can change FB signatures, data model behavior, and compilation settings. Test firmware upgrades in a lab environment against your full project before applying to a production device. This is not optional advice.
       </Callout>
+
+      {QUIZZES.rtac && QUIZZES.rtac.length > 0 && (
+        <Quiz chapterId="rtac" questions={QUIZZES.rtac} level={1} />
+      )}
     </ChapterLayout>
   )
 }

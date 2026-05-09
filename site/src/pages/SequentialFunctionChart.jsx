@@ -3,7 +3,9 @@ import ChapterLayout from '../components/ChapterLayout'
 import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
+import Quiz from '../components/Quiz'
 import { ANALOGIES } from '../data/chapters'
+import { QUIZZES } from '../data/quizzes'
 
 export default function SequentialFunctionChart() {
   return (
@@ -137,6 +139,10 @@ export default function SequentialFunctionChart() {
       </div>
 
       <GifCard gifKey="thinking" caption="Tracing an SFC with a parallel branch and a stored action" side="right" />
+
+      {QUIZZES.sfc && QUIZZES.sfc.length > 0 && (
+        <Quiz chapterId="sfc" questions={QUIZZES.sfc} level={1} />
+      )}
     </ChapterLayout>
   )
 }

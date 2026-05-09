@@ -3,7 +3,9 @@ import ChapterLayout from '../components/ChapterLayout'
 import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
+import Quiz from '../components/Quiz'
 import { ANALOGIES } from '../data/chapters'
+import { QUIZZES } from '../data/quizzes'
 
 export default function Troubleshoot() {
   return (
@@ -148,6 +150,10 @@ END_FUNCTION`}</pre>
           <li>Scan period too aggressive for logic complexity (move non-time-critical logic to slower task)</li>
         </ol>
       </Callout>
+
+      {QUIZZES.troubleshoot && QUIZZES.troubleshoot.length > 0 && (
+        <Quiz chapterId="troubleshoot" questions={QUIZZES.troubleshoot} level={1} />
+      )}
     </ChapterLayout>
   )
 }

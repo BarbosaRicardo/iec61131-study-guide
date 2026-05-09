@@ -3,6 +3,7 @@ import ChapterLayout from '../components/ChapterLayout'
 import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
+import Quiz from '../components/Quiz'
 import { ANALOGIES } from '../data/chapters'
 import { QUIZZES } from '../data/quizzes'
 
@@ -79,6 +80,10 @@ export default function Intro() {
       <Callout type="field" title="The RTAC Reality Check">
         The SEL RTAC supports Structured Text as its primary IEC 61131-3 language. LD and FBD are available for some use cases. SFC integration depends on firmware version. IL is not supported and never will be. Focus your study time on ST and FBD — these are what you will write in the field.
       </Callout>
+
+      {QUIZZES.intro && QUIZZES.intro.length > 0 && (
+        <Quiz chapterId="intro" questions={QUIZZES.intro} level={1} />
+      )}
     </ChapterLayout>
   )
 }

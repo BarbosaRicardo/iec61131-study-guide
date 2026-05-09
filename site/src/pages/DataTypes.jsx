@@ -3,7 +3,9 @@ import ChapterLayout from '../components/ChapterLayout'
 import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
+import Quiz from '../components/Quiz'
 import { ANALOGIES } from '../data/chapters'
+import { QUIZZES } from '../data/quizzes'
 
 export default function DataTypes() {
   return (
@@ -164,6 +166,10 @@ rReal := STRING_TO_REAL(sStr); (* Parse string as float *)`}</pre>
         <p className="text-sm italic text-purple-800">"{ANALOGIES.datatypes.text}"</p>
         <p className="text-xs text-purple-500 mt-2">— {ANALOGIES.datatypes.author}</p>
       </div>
+
+      {QUIZZES.datatypes && QUIZZES.datatypes.length > 0 && (
+        <Quiz chapterId="datatypes" questions={QUIZZES.datatypes} level={1} />
+      )}
     </ChapterLayout>
   )
 }

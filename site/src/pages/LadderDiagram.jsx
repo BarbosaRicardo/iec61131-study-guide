@@ -3,7 +3,9 @@ import ChapterLayout from '../components/ChapterLayout'
 import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
+import Quiz from '../components/Quiz'
 import { ANALOGIES } from '../data/chapters'
+import { QUIZZES } from '../data/quizzes'
 
 export default function LadderDiagram() {
   return (
@@ -152,6 +154,10 @@ CTUD — Count Up/Down (combined)
       <Callout type="pro" title="When to Use LD vs ST">
         Use LD when: (1) the audience includes electricians who don't write code, (2) the logic maps naturally to relay-style interlocks, or (3) you are debugging with field personnel who need to read it on a laptop. Use ST when: logic is complex, involves math, requires loops or CASE, or when you need maintainable long-term code. Most RTAC projects end up primarily ST.
       </Callout>
+
+      {QUIZZES.ld && QUIZZES.ld.length > 0 && (
+        <Quiz chapterId="ld" questions={QUIZZES.ld} level={1} />
+      )}
     </ChapterLayout>
   )
 }

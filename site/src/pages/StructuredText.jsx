@@ -3,7 +3,9 @@ import ChapterLayout from '../components/ChapterLayout'
 import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
+import Quiz from '../components/Quiz'
 import { ANALOGIES } from '../data/chapters'
+import { QUIZZES } from '../data/quizzes'
 
 export default function StructuredText() {
   return (
@@ -208,6 +210,10 @@ wResult := SHR(wA, 2);  (* Shift right 2 bits *)`}</pre>
       <Callout type="pro" title="Use Comments Aggressively">
         ST code without comments is maintenance debt. Power system code runs for 20+ years. The engineer who reads your code in 2044 may not have access to any context about why that trip threshold is 95% instead of 100%. Comment every non-obvious decision. Your future self is also in this audience.
       </Callout>
+
+      {QUIZZES.st && QUIZZES.st.length > 0 && (
+        <Quiz chapterId="st" questions={QUIZZES.st} level={1} />
+      )}
     </ChapterLayout>
   )
 }

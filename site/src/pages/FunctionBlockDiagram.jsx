@@ -3,7 +3,9 @@ import ChapterLayout from '../components/ChapterLayout'
 import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
+import Quiz from '../components/Quiz'
 import { ANALOGIES } from '../data/chapters'
+import { QUIZZES } from '../data/quizzes'
 
 export default function FunctionBlockDiagram() {
   return (
@@ -119,6 +121,10 @@ rProcessVar ──────  CTRL_PID.X
       <Callout type="pro" title="FBD for Documentation">
         A well-drawn FBD diagram is nearly self-documenting. When presenting control logic to a customer, a process engineer, or a regulator who doesn't write code, an FBD diagram communicates the signal flow without requiring any programming background. Print it, paste it in the design document, and watch the questions become more specific.
       </Callout>
+
+      {QUIZZES.fbd && QUIZZES.fbd.length > 0 && (
+        <Quiz chapterId="fbd" questions={QUIZZES.fbd} level={1} />
+      )}
     </ChapterLayout>
   )
 }
