@@ -1,0 +1,39 @@
+\contentsline {chapter}{Contents}{2}{section*.1}%
+\contentsline {chapter}{\chapternumberline {1}IEC 61131-3 Overview}{5}{chapter.1}%
+\contentsline {section}{\numberline {1.1}History and Purpose}{5}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Third Edition (2013) Changes}{6}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Why It Matters for RTAC Programming}{6}{section.1.3}%
+\contentsline {chapter}{\chapternumberline {2}Data Types and Variables}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Elementary Data Types}{7}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Variable Declaration Sections}{8}{section.2.2}%
+\contentsline {chapter}{\chapternumberline {3}Structured Text (ST)}{9}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Syntax Fundamentals}{9}{section.3.1}%
+\contentsline {section}{\numberline {3.2}CASE Statement}{9}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Motor Interlock Example}{10}{section.3.3}%
+\contentsline {chapter}{\chapternumberline {4}Ladder Diagram (LD)}{13}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Elements and Conventions}{13}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Timer Function Blocks}{13}{section.4.2}%
+\contentsline {chapter}{\chapternumberline {5}Function Block Diagram (FBD)}{15}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Data Flow Programming}{15}{section.5.1}%
+\contentsline {section}{\numberline {5.2}PID Control}{15}{section.5.2}%
+\contentsline {chapter}{\chapternumberline {6}Sequential Function Chart (SFC)}{17}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Steps and Transitions}{17}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Action Qualifiers}{17}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Parallel Sequences}{17}{section.6.3}%
+\contentsline {chapter}{\chapternumberline {7}POUs: Program, Function, Function Block}{19}{chapter.7}%
+\contentsline {section}{\numberline {7.1}POU Hierarchy}{19}{section.7.1}%
+\contentsline {section}{\numberline {7.2}FUNCTION vs. FUNCTION\_BLOCK}{19}{section.7.2}%
+\contentsline {section}{\numberline {7.3}No Recursion}{20}{section.7.3}%
+\contentsline {chapter}{\chapternumberline {8}IEC 61131-3 on the SEL RTAC}{21}{chapter.8}%
+\contentsline {section}{\numberline {8.1}ACSELERATOR RTAC IDE}{21}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Task Configuration}{21}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Data Mapping: Protocol to ST Variables}{21}{section.8.3}%
+\contentsline {chapter}{\chapternumberline {9}Debugging and Troubleshooting}{23}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Online Monitoring}{23}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Scan Time Overruns and Watchdog Trips}{23}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Common RTAC IEC 61131-3 Bugs}{23}{section.9.3}%
+\contentsline {chapter}{\chapternumberline {10}Lab and Practice}{25}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Free Tools}{25}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Suggested Exercises}{25}{section.10.2}%
+\contentsline {appendix}{\chapternumberline {A}Quick Reference}{27}{appendix.A}%
+\contentsline {section}{\numberline {A.1}ST Operators Summary}{27}{section.A.1}%
