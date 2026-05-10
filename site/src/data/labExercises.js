@@ -39,32 +39,20 @@ Implement validateType(typeName, value) that returns:
 function validateType(typeName, value) {
   const upper = typeName.toUpperCase();
 
-  if (upper === 'BOOL') {
-    const valid = value === true || value === false || value === 0 || value === 1;
-    return { valid, type: 'BOOL', range: null, reason: valid ? 'OK' : 'BOOL must be true/false or 0/1' };
-  }
+  // TODO: Step 1 — Handle BOOL type: valid if value is true/false or 0/1
+  //       Return { valid, type: 'BOOL', range: null, reason: '...' }
 
-  if (upper === 'REAL' || upper === 'LREAL') {
-    const valid = typeof value === 'number' && isFinite(value);
-    return { valid, type: upper, range: null, reason: valid ? 'OK' : 'Must be a finite number' };
-  }
+  // TODO: Step 2 — Handle REAL and LREAL: valid if typeof value === 'number' && isFinite(value)
+  //       Return { valid, type: upper, range: null, reason: '...' }
 
-  const range = TYPE_RANGES[upper];
-  if (!range) {
-    return { valid: false, type: upper, range: null, reason: 'Unknown IEC type: ' + typeName };
-  }
+  // TODO: Step 3 — Look up TYPE_RANGES[upper]; if not found return invalid with reason 'Unknown IEC type: ...'
 
-  if (!Number.isInteger(value)) {
-    return { valid: false, type: upper, range, reason: 'Integer types require integer values' };
-  }
+  // TODO: Step 4 — Integer types: if !Number.isInteger(value) return invalid with reason
 
-  const valid = value >= range[0] && value <= range[1];
-  return {
-    valid,
-    type: upper,
-    range,
-    reason: valid ? 'OK' : \`Value \${value} out of \${upper} range [\${range[0]}, \${range[1]}]\`,
-  };
+  // TODO: Step 5 — Check range[0] <= value <= range[1]; build reason string for out-of-range
+  //       Return { valid, type: upper, range, reason }
+
+  return { valid: false, type: upper, range: null, reason: 'Not implemented' };
 }
 
 const solution = validateType;
@@ -85,35 +73,21 @@ console.log(validateType('BOOL', true));    // valid`,
 def validate_type(type_name, value):
     upper = type_name.upper()
 
-    if upper == 'BOOL':
-        valid = value is True or value is False or value == 0 or value == 1
-        return {
-            'valid': valid,
-            'type': 'BOOL',
-            'range': None,
-            'reason': 'OK' if valid else 'BOOL must be True/False or 0/1',
-        }
+    # TODO: Step 1 — Handle BOOL: valid if value is True/False or 0/1
+    #       Return {'valid': ..., 'type': 'BOOL', 'range': None, 'reason': '...'}
 
-    if upper in ('REAL', 'LREAL'):
-        import math
-        valid = isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value)
-        return {
-            'valid': valid,
-            'type': upper,
-            'range': None,
-            'reason': 'OK' if valid else 'Must be a finite number',
-        }
+    # TODO: Step 2 — Handle REAL/LREAL: use isinstance(value, (int, float)) and math.isfinite
+    #       Return {'valid': ..., 'type': upper, 'range': None, 'reason': '...'}
 
-    range_ = TYPE_RANGES.get(upper)
-    if range_ is None:
-        return {'valid': False, 'type': upper, 'range': None, 'reason': 'Unknown IEC type: ' + type_name}
+    # TODO: Step 3 — Look up TYPE_RANGES.get(upper); if None return invalid 'Unknown IEC type: ...'
 
-    if not isinstance(value, int) or isinstance(value, bool):
-        return {'valid': False, 'type': upper, 'range': range_, 'reason': 'Integer types require integer values'}
+    # TODO: Step 4 — Integer check: if not isinstance(value, int) or isinstance(value, bool) → invalid
 
-    valid = range_[0] <= value <= range_[1]
-    reason = 'OK' if valid else 'Value {} out of {} range [{}, {}]'.format(value, upper, range_[0], range_[1])
-    return {'valid': valid, 'type': upper, 'range': range_, 'reason': reason}
+    # TODO: Step 5 — Range check: range_[0] <= value <= range_[1]
+    #       Build reason string for out-of-range case
+    #       Return {'valid': ..., 'type': upper, 'range': range_, 'reason': ...}
+
+    return {'valid': False, 'type': upper, 'range': None, 'reason': 'Not implemented'}
 
 solution = validate_type
 
@@ -133,35 +107,21 @@ print(validate_type('BOOL', True))    # valid`,
 def validate_type(type_name, value):
     upper = type_name.upper()
 
-    if upper == 'BOOL':
-        valid = value is True or value is False or value == 0 or value == 1
-        return {
-            'valid': valid,
-            'type': 'BOOL',
-            'range': None,
-            'reason': 'OK' if valid else 'BOOL must be True/False or 0/1',
-        }
+    # TODO: Step 1 — Handle BOOL: valid if value is True/False or 0/1
+    #       Return {'valid': ..., 'type': 'BOOL', 'range': None, 'reason': '...'}
 
-    if upper in ('REAL', 'LREAL'):
-        import math
-        valid = isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(float(value))
-        return {
-            'valid': valid,
-            'type': upper,
-            'range': None,
-            'reason': 'OK' if valid else 'Must be a finite number',
-        }
+    # TODO: Step 2 — Handle REAL/LREAL: use isinstance and math.isfinite(float(value))
+    #       Return {'valid': ..., 'type': upper, 'range': None, 'reason': '...'}
 
-    range_ = TYPE_RANGES.get(upper)
-    if range_ is None:
-        return {'valid': False, 'type': upper, 'range': None, 'reason': 'Unknown IEC type: ' + type_name}
+    # TODO: Step 3 — Look up TYPE_RANGES.get(upper); if None return invalid with reason
 
-    if not isinstance(value, int) or isinstance(value, bool):
-        return {'valid': False, 'type': upper, 'range': range_, 'reason': 'Integer types require integer values'}
+    # TODO: Step 4 — Integer check: if not isinstance(value, int) or isinstance(value, bool) → invalid
 
-    valid = range_[0] <= value <= range_[1]
-    reason = 'OK' if valid else 'Value {0} out of {1} range [{2}, {3}]'.format(value, upper, range_[0], range_[1])
-    return {'valid': valid, 'type': upper, 'range': range_, 'reason': reason}
+    # TODO: Step 5 — Range check: range_[0] <= value <= range_[1]
+    #       Use .format() for the reason string (Jython 2.7 — no f-strings)
+    #       Return {'valid': ..., 'type': upper, 'range': range_, 'reason': ...}
+
+    return {'valid': False, 'type': upper, 'range': None, 'reason': 'Not implemented'}
 
 solution = validate_type
 
@@ -218,24 +178,25 @@ The 'dt' parameter represents one scan cycle duration.`,
     starter: `class TON {
   constructor(presetMs) {
     this.PT = presetMs;
-    this.ET = 0;
-    this.Q = false;
+    this.ET = 0;        // elapsed time in ms
+    this.Q = false;     // output coil (timer done)
+    // TODO: initialize any other internal state you need
   }
 
   update(inSignal, dtMs) {
-    if (inSignal) {
-      this.ET = Math.min(this.ET + dtMs, this.PT); // accumulate, cap at PT
-      this.Q = this.ET >= this.PT;
-    } else {
-      this.ET = 0;
-      this.Q = false;
-    }
-    return { Q: this.Q, ET: this.ET };
+    // TON (Timer On-Delay) logic:
+    // Step 1: If inSignal is false — reset ET to 0 and Q to false, return {Q, ET}
+    // Step 2: If inSignal is true — accumulate: ET += dtMs
+    // Step 3: Cap ET at PT (don't let ET exceed preset)
+    // Step 4: If ET >= PT — set Q = true; otherwise Q = false
+    // Step 5: Return { Q: this.Q, ET: this.ET }
+    // TODO: implement above
+
+    return { Q: false, ET: 0 };
   }
 
   reset() {
-    this.ET = 0;
-    this.Q = false;
+    // TODO: reset ET and Q to initial state
   }
 }
 
@@ -256,21 +217,24 @@ for (let scan = 0; scan < 55; scan++) {
     starterPy: `class TON:
     def __init__(self, preset_ms):
         self.PT = preset_ms
-        self.ET = 0
-        self.Q = False
+        self.ET = 0        # elapsed time in ms
+        self.Q = False     # output coil (timer done)
+        # TODO: initialize any other internal state you need
 
     def update(self, in_signal, dt_ms):
-        if in_signal:
-            self.ET = min(self.ET + dt_ms, self.PT)  # accumulate, cap at PT
-            self.Q = self.ET >= self.PT
-        else:
-            self.ET = 0
-            self.Q = False
-        return {'Q': self.Q, 'ET': self.ET}
+        # TON (Timer On-Delay) logic:
+        # Step 1: If in_signal is False — reset ET to 0 and Q to False, return result
+        # Step 2: If in_signal is True — accumulate: ET += dt_ms
+        # Step 3: Cap ET at PT (don't let ET exceed preset)
+        # Step 4: If ET >= PT — set Q = True; otherwise Q = False
+        # Step 5: Return {'Q': self.Q, 'ET': self.ET}
+        # TODO: implement above
+
+        return {'Q': False, 'ET': 0}
 
     def reset(self):
-        self.ET = 0
-        self.Q = False
+        # TODO: reset ET and Q to initial state
+        pass
 
 solution = TON
 
@@ -287,21 +251,24 @@ for scan in range(55):
     starterJython: `class TON:
     def __init__(self, preset_ms):
         self.PT = preset_ms
-        self.ET = 0
-        self.Q = False
+        self.ET = 0        # elapsed time in ms
+        self.Q = False     # output coil (timer done)
+        # TODO: initialize any other internal state you need
 
     def update(self, in_signal, dt_ms):
-        if in_signal:
-            self.ET = min(self.ET + dt_ms, self.PT)  # accumulate, cap at PT
-            self.Q = self.ET >= self.PT
-        else:
-            self.ET = 0
-            self.Q = False
-        return {'Q': self.Q, 'ET': self.ET}
+        # TON (Timer On-Delay) logic:
+        # Step 1: If in_signal is False — reset ET to 0 and Q to False, return result
+        # Step 2: If in_signal is True — accumulate: ET += dt_ms
+        # Step 3: Cap ET at PT using min() (don't let ET exceed preset)
+        # Step 4: If ET >= PT — set Q = True; otherwise Q = False
+        # Step 5: Return {'Q': self.Q, 'ET': self.ET}
+        # TODO: implement above
+
+        return {'Q': False, 'ET': 0}
 
     def reset(self):
-        self.ET = 0
-        self.Q = False
+        # TODO: reset ET and Q to initial state
+        pass
 
 solution = TON
 
@@ -382,22 +349,34 @@ This is how PLC IDEs (CODESYS, Studio 5000, TIA Portal) execute your program.`,
     starter: `class R_TRIG {
   constructor() {
     this._prev = false;
+    // TODO: initialize any state you need to detect a rising edge
   }
+
   update(inSignal) {
-    const Q = inSignal === true && this._prev === false;
-    this._prev = inSignal;
-    return { Q };
+    // R_TRIG: Rising edge detector
+    // Step 1: Q = true only when inSignal is true AND previous was false
+    // Step 2: Store inSignal as _prev AFTER computing Q (order matters!)
+    // Step 3: Return { Q }
+    // TODO: implement above
+
+    return { Q: false };
   }
 }
 
 class F_TRIG {
   constructor() {
     this._prev = false;
+    // TODO: initialize any state you need to detect a falling edge
   }
+
   update(inSignal) {
-    const Q = inSignal === false && this._prev === true;
-    this._prev = inSignal;
-    return { Q };
+    // F_TRIG: Falling edge detector (inverse of R_TRIG)
+    // Step 1: Q = true only when inSignal is false AND previous was true
+    // Step 2: Store inSignal as _prev AFTER computing Q
+    // Step 3: Return { Q }
+    // TODO: implement above
+
+    return { Q: false };
   }
 }
 
@@ -408,24 +387,20 @@ class ScanCycleSimulator {
   }
 
   addBlock(name, block) {
-    this.blocks[name] = block;
+    // TODO: store block under name so run() can call it each scan
     return this;
   }
 
   run(signals, scanCount) {
-    const history = [];
-    for (let scan = 0; scan < scanCount; scan++) {
-      const outputs = {};
-      for (const [name, block] of Object.entries(this.blocks)) {
-        // Pass the signal matching the block name, or false if not provided
-        const signal = signals[name] !== undefined ? signals[name] : false;
-        // Signal can be a function (dynamic) or static value
-        const inVal = typeof signal === 'function' ? signal(scan) : signal;
-        outputs[name] = block.update(inVal);
-      }
-      history.push({ scan, outputs });
-    }
-    return history;
+    // Step 1: Loop scanCount times (each iteration = one scan cycle)
+    // Step 2: For each block in this.blocks, read the signal value for that block name
+    //         (signal can be a function(scan)→bool or a static bool value)
+    // Step 3: Call block.update(inVal) and capture output
+    // Step 4: Push { scan, outputs: {name: result, ...} } to history array
+    // Step 5: Return the history array
+    // TODO: implement above
+
+    return [];
   }
 }
 
@@ -442,21 +417,31 @@ signals.forEach((s, i) => {
     starterPy: `class R_TRIG:
     def __init__(self):
         self._prev = False
+        # TODO: initialize any state you need to detect a rising edge
 
     def update(self, in_signal):
-        Q = in_signal is True and self._prev is False
-        self._prev = in_signal
-        return {'Q': Q}
+        # R_TRIG: Rising edge detector
+        # Step 1: Q = True only when in_signal is True AND _prev is False
+        # Step 2: Store in_signal as _prev AFTER computing Q (order matters!)
+        # Step 3: Return {'Q': Q}
+        # TODO: implement above
+
+        return {'Q': False}
 
 
 class F_TRIG:
     def __init__(self):
         self._prev = False
+        # TODO: initialize any state you need to detect a falling edge
 
     def update(self, in_signal):
-        Q = in_signal is False and self._prev is True
-        self._prev = in_signal
-        return {'Q': Q}
+        # F_TRIG: Falling edge detector (inverse of R_TRIG)
+        # Step 1: Q = True only when in_signal is False AND _prev is True
+        # Step 2: Store in_signal as _prev AFTER computing Q
+        # Step 3: Return {'Q': Q}
+        # TODO: implement above
+
+        return {'Q': False}
 
 
 class ScanCycleSimulator:
@@ -465,20 +450,18 @@ class ScanCycleSimulator:
         self.blocks = {}
 
     def add_block(self, name, block):
-        self.blocks[name] = block
+        # TODO: store block under name
         return self
 
     def run(self, signals, scan_count):
-        history = []
-        for scan in range(scan_count):
-            outputs = {}
-            for name, block in self.blocks.items():
-                signal = signals.get(name, False)
-                # Signal can be a callable (dynamic) or static value
-                in_val = signal(scan) if callable(signal) else signal
-                outputs[name] = block.update(in_val)
-            history.append({'scan': scan, 'outputs': outputs})
-        return history
+        # Step 1: Loop scan_count times
+        # Step 2: For each block, get signal value (callable or static)
+        # Step 3: Call block.update(in_val) and collect outputs
+        # Step 4: Append {'scan': scan, 'outputs': {name: result, ...}} to history
+        # Step 5: Return history
+        # TODO: implement above
+
+        return []
 
 
 solution = {'R_TRIG': R_TRIG, 'F_TRIG': F_TRIG, 'ScanCycleSimulator': ScanCycleSimulator}
@@ -493,21 +476,31 @@ for i, s in enumerate(signals_list):
     starterJython: `class R_TRIG:
     def __init__(self):
         self._prev = False
+        # TODO: initialize any state you need to detect a rising edge
 
     def update(self, in_signal):
-        Q = in_signal is True and self._prev is False
-        self._prev = in_signal
-        return {'Q': Q}
+        # R_TRIG: Rising edge detector
+        # Step 1: Q = True only when in_signal is True AND _prev is False
+        # Step 2: Store in_signal as _prev AFTER computing Q (order matters!)
+        # Step 3: Return {'Q': Q}
+        # TODO: implement above
+
+        return {'Q': False}
 
 
 class F_TRIG:
     def __init__(self):
         self._prev = False
+        # TODO: initialize any state you need to detect a falling edge
 
     def update(self, in_signal):
-        Q = in_signal is False and self._prev is True
-        self._prev = in_signal
-        return {'Q': Q}
+        # F_TRIG: Falling edge detector (inverse of R_TRIG)
+        # Step 1: Q = True only when in_signal is False AND _prev is True
+        # Step 2: Store in_signal as _prev AFTER computing Q
+        # Step 3: Return {'Q': Q}
+        # TODO: implement above
+
+        return {'Q': False}
 
 
 class ScanCycleSimulator:
@@ -516,20 +509,18 @@ class ScanCycleSimulator:
         self.blocks = {}
 
     def add_block(self, name, block):
-        self.blocks[name] = block
+        # TODO: store block under name
         return self
 
     def run(self, signals, scan_count):
-        history = []
-        for scan in range(scan_count):
-            outputs = {}
-            for name in self.blocks:
-                block = self.blocks[name]
-                signal = signals.get(name, False)
-                in_val = signal(scan) if callable(signal) else signal
-                outputs[name] = block.update(in_val)
-            history.append({'scan': scan, 'outputs': outputs})
-        return history
+        # Step 1: Loop scan_count times
+        # Step 2: For each block name, get signal (callable or static bool)
+        # Step 3: Call block.update(in_val) and collect outputs
+        # Step 4: Append {'scan': scan, 'outputs': {name: result}} to history
+        # Step 5: Return history
+        # TODO: implement above
+        # Note: Jython 2.7 — use self.blocks.items() or iterate keys
+        return []
 
 
 solution = {'R_TRIG': R_TRIG, 'F_TRIG': F_TRIG, 'ScanCycleSimulator': ScanCycleSimulator}
@@ -621,34 +612,24 @@ Example sequence: pump startup
   }
 
   update(inputs) {
-    // Find transitions from current step
-    const availTransitions = this.transitions.filter(t => t.from === this.currentStepId);
-    let transitioned = false;
+    // Step 1: Find all transitions where t.from === this.currentStepId
+    // Step 2: Loop through them; if condition(inputs) is true, update currentStepId
+    //         Set transitioned = true and break (only one transition per scan)
+    // Step 3: Find the active step object: this.steps.find(s => s.id === this.currentStepId)
+    // Step 4: Call activeStep.action(inputs) if it exists, else actionOutput = {}
+    // Step 5: Return { activeStep: activeStep.name, actionOutput, transitioned }
+    // TODO: implement above
 
-    for (const trans of availTransitions) {
-      if (trans.condition(inputs)) {
-        this.currentStepId = trans.to;
-        transitioned = true;
-        break; // only one transition per scan
-      }
-    }
-
-    const activeStep = this.steps.find(s => s.id === this.currentStepId);
-    const actionOutput = activeStep?.action ? activeStep.action(inputs) : {};
-
-    return {
-      activeStep: activeStep?.name ?? 'Unknown',
-      actionOutput,
-      transitioned,
-    };
+    return { activeStep: 'IDLE', actionOutput: {}, transitioned: false };
   }
 
   getCurrentStep() {
-    return this.steps.find(s => s.id === this.currentStepId);
+    // TODO: return the step object matching this.currentStepId
+    return null;
   }
 
   reset() {
-    this.currentStepId = this.steps[0]?.id ?? 0;
+    // TODO: reset currentStepId to the first step's id
   }
 }
 
@@ -679,30 +660,22 @@ console.log(sfc.update({ stop_cmd: true }));    // → IDLE`,
         self.current_step_id = steps[0]['id'] if steps else 0
 
     def update(self, inputs):
-        # Find transitions from current step
-        avail = [t for t in self.transitions if t['from'] == self.current_step_id]
-        transitioned = False
+        # Step 1: Find transitions where t['from'] == self.current_step_id
+        # Step 2: Loop; if condition(inputs) is True → update current_step_id, set transitioned, break
+        # Step 3: Find active step: next(s for s in self.steps if s['id'] == self.current_step_id)
+        # Step 4: Call active_step['action'](inputs) if it exists, else action_output = {}
+        # Step 5: Return {'activeStep': name, 'actionOutput': ..., 'transitioned': ...}
+        # TODO: implement above
 
-        for trans in avail:
-            if trans['condition'](inputs):
-                self.current_step_id = trans['to']
-                transitioned = True
-                break  # only one transition per scan
-
-        active_step = next((s for s in self.steps if s['id'] == self.current_step_id), None)
-        action_output = active_step['action'](inputs) if active_step and active_step.get('action') else {}
-
-        return {
-            'activeStep': active_step['name'] if active_step else 'Unknown',
-            'actionOutput': action_output,
-            'transitioned': transitioned,
-        }
+        return {'activeStep': 'IDLE', 'actionOutput': {}, 'transitioned': False}
 
     def get_current_step(self):
-        return next((s for s in self.steps if s['id'] == self.current_step_id), None)
+        # TODO: return step dict matching self.current_step_id
+        return None
 
     def reset(self):
-        self.current_step_id = self.steps[0]['id'] if self.steps else 0
+        # TODO: reset current_step_id to steps[0]['id']
+        pass
 
 
 solution = SFC
@@ -730,37 +703,22 @@ print(sfc.update({'stop_cmd': True}))    # IDLE`,
         self.current_step_id = steps[0]['id'] if steps else 0
 
     def update(self, inputs):
-        avail = [t for t in self.transitions if t['from'] == self.current_step_id]
-        transitioned = False
+        # Step 1: Find transitions where t['from'] == self.current_step_id
+        # Step 2: Loop; if condition(inputs) is True → update current_step_id, break
+        # Step 3: Find active step by matching 'id' in self.steps (use a for loop — no next() in Jython 2.7)
+        # Step 4: Call active_step['action'](inputs) if key exists, else action_output = {}
+        # Step 5: Return {'activeStep': name, 'actionOutput': ..., 'transitioned': ...}
+        # TODO: implement above
 
-        for trans in avail:
-            if trans['condition'](inputs):
-                self.current_step_id = trans['to']
-                transitioned = True
-                break
-
-        active_step = None
-        for s in self.steps:
-            if s['id'] == self.current_step_id:
-                active_step = s
-                break
-
-        action_output = active_step['action'](inputs) if active_step and active_step.get('action') else {}
-
-        return {
-            'activeStep': active_step['name'] if active_step else 'Unknown',
-            'actionOutput': action_output,
-            'transitioned': transitioned,
-        }
+        return {'activeStep': 'IDLE', 'actionOutput': {}, 'transitioned': False}
 
     def get_current_step(self):
-        for s in self.steps:
-            if s['id'] == self.current_step_id:
-                return s
+        # TODO: return step dict matching self.current_step_id (use a for loop)
         return None
 
     def reset(self):
-        self.current_step_id = self.steps[0]['id'] if self.steps else 0
+        # TODO: reset current_step_id to steps[0]['id']
+        pass
 
 
 solution = SFC
@@ -867,48 +825,30 @@ Rules:
   }
 
   update(ch1, ch2) {
-    if (this._fault) {
-      // Latched fault — only reset() can clear
-      return {
-        safeState: false,
-        fault: true,
-        discrepancyMs: this._discrepancyMs,
-        faultReason: this._faultReason,
-      };
-    }
+    // Step 1: If already faulted (_fault is true), return latched fault state immediately
+    //         { safeState: false, fault: true, discrepancyMs: ..., faultReason: ... }
 
-    const agree = (ch1 === ch2);
+    // Step 2: Check if ch1 === ch2 (channels agree)
 
-    if (!agree) {
-      this._discrepancyMs += this.scanTimeMs;
-      if (this._discrepancyMs >= this.discrepancyTimeMs) {
-        this._fault = true;
-        this._faultReason = \`CH1=\${ch1}, CH2=\${ch2} disagree for \${this._discrepancyMs}ms\`;
-      }
-    } else {
-      this._discrepancyMs = 0; // reset discrepancy timer when channels agree
-    }
+    // Step 3: If NOT agreeing — increment _discrepancyMs by scanTimeMs
+    //         If _discrepancyMs >= discrepancyTimeMs → latch fault, set _faultReason string
 
-    const safeState = ch1 === true && ch2 === true && !this._fault;
+    // Step 4: If agreeing — reset _discrepancyMs to 0
 
-    return {
-      safeState,
-      fault: this._fault,
-      discrepancyMs: this._discrepancyMs,
-      faultReason: this._fault ? this._faultReason : '',
-    };
+    // Step 5: Compute safeState = ch1 is true AND ch2 is true AND NOT faulted
+
+    // Step 6: Return { safeState, fault: this._fault, discrepancyMs: ..., faultReason: ... }
+
+    // TODO: implement above
+    return { safeState: false, fault: false, discrepancyMs: 0, faultReason: '' };
   }
 
   reset(authCode) {
-    if (authCode !== 1234) {
-      return { success: false, reason: 'Invalid authorization code' };
-    }
-    // TODO: clear fault state — allow reset only if both channels now agree
-    // Return { success: true } or { success: false, reason: string }
-    this._fault = false;
-    this._faultReason = '';
-    this._discrepancyMs = 0;
-    return { success: true };
+    // Step 1: If authCode !== 1234 → return { success: false, reason: 'Invalid authorization code' }
+    // Step 2: Clear _fault, _faultReason, and _discrepancyMs
+    // Step 3: Return { success: true }
+    // TODO: implement above
+    return { success: false, reason: 'Not implemented' };
   }
 }
 
@@ -936,43 +876,28 @@ console.log(interlock.reset(1234));          // correct code, clears fault`,
         self._discrepancy_ms = 0
 
     def update(self, ch1, ch2):
-        if self._fault:
-            # Latched fault — only reset() can clear
-            return {
-                'safeState': False,
-                'fault': True,
-                'discrepancyMs': self._discrepancy_ms,
-                'faultReason': self._fault_reason,
-            }
+        # Step 1: If self._fault is True, return latched fault state immediately
 
-        agree = (ch1 == ch2)
+        # Step 2: Check if ch1 == ch2 (channels agree)
 
-        if not agree:
-            self._discrepancy_ms += self.scan_time_ms
-            if self._discrepancy_ms >= self.discrepancy_time_ms:
-                self._fault = True
-                self._fault_reason = 'CH1={}, CH2={} disagree for {}ms'.format(
-                    ch1, ch2, self._discrepancy_ms)
-        else:
-            self._discrepancy_ms = 0  # reset discrepancy timer when channels agree
+        # Step 3: If NOT agreeing — increment _discrepancy_ms by scan_time_ms
+        #         If _discrepancy_ms >= discrepancy_time_ms → latch fault, set _fault_reason
 
-        safe_state = ch1 is True and ch2 is True and not self._fault
+        # Step 4: If agreeing — reset _discrepancy_ms to 0
 
-        return {
-            'safeState': safe_state,
-            'fault': self._fault,
-            'discrepancyMs': self._discrepancy_ms,
-            'faultReason': self._fault_reason if self._fault else '',
-        }
+        # Step 5: safe_state = ch1 is True and ch2 is True and not self._fault
+
+        # Step 6: Return {'safeState': safe_state, 'fault': ..., 'discrepancyMs': ..., 'faultReason': ...}
+
+        # TODO: implement above
+        return {'safeState': False, 'fault': False, 'discrepancyMs': 0, 'faultReason': ''}
 
     def reset(self, auth_code):
-        if auth_code != 1234:
-            return {'success': False, 'reason': 'Invalid authorization code'}
-        # TODO: clear fault state
-        self._fault = False
-        self._fault_reason = ''
-        self._discrepancy_ms = 0
-        return {'success': True}
+        # Step 1: If auth_code != 1234 → return {'success': False, 'reason': 'Invalid authorization code'}
+        # Step 2: Clear _fault, _fault_reason, _discrepancy_ms
+        # Step 3: Return {'success': True}
+        # TODO: implement above
+        return {'success': False, 'reason': 'Not implemented'}
 
 
 solution = SafetyInterlock
@@ -996,41 +921,29 @@ print(interlock.reset(1234))           # correct code, clears fault`,
         self._discrepancy_ms = 0
 
     def update(self, ch1, ch2):
-        if self._fault:
-            return {
-                'safeState': False,
-                'fault': True,
-                'discrepancyMs': self._discrepancy_ms,
-                'faultReason': self._fault_reason,
-            }
+        # Step 1: If self._fault is True, return latched fault state immediately
 
-        agree = (ch1 == ch2)
+        # Step 2: Check if ch1 == ch2 (channels agree)
 
-        if not agree:
-            self._discrepancy_ms += self.scan_time_ms
-            if self._discrepancy_ms >= self.discrepancy_time_ms:
-                self._fault = True
-                self._fault_reason = 'CH1={0}, CH2={1} disagree for {2}ms'.format(
-                    ch1, ch2, self._discrepancy_ms)
-        else:
-            self._discrepancy_ms = 0
+        # Step 3: If NOT agreeing — increment _discrepancy_ms by scan_time_ms
+        #         If _discrepancy_ms >= discrepancy_time_ms → latch fault
+        #         Use .format() for the fault reason string (no f-strings in Jython 2.7)
 
-        safe_state = ch1 is True and ch2 is True and not self._fault
+        # Step 4: If agreeing — reset _discrepancy_ms to 0
 
-        return {
-            'safeState': safe_state,
-            'fault': self._fault,
-            'discrepancyMs': self._discrepancy_ms,
-            'faultReason': self._fault_reason if self._fault else '',
-        }
+        # Step 5: safe_state = ch1 is True and ch2 is True and not self._fault
+
+        # Step 6: Return {'safeState': ..., 'fault': ..., 'discrepancyMs': ..., 'faultReason': ...}
+
+        # TODO: implement above
+        return {'safeState': False, 'fault': False, 'discrepancyMs': 0, 'faultReason': ''}
 
     def reset(self, auth_code):
-        if auth_code != 1234:
-            return {'success': False, 'reason': 'Invalid authorization code'}
-        self._fault = False
-        self._fault_reason = ''
-        self._discrepancy_ms = 0
-        return {'success': True}
+        # Step 1: If auth_code != 1234 → return {'success': False, 'reason': 'Invalid authorization code'}
+        # Step 2: Clear _fault, _fault_reason, _discrepancy_ms
+        # Step 3: Return {'success': True}
+        # TODO: implement above
+        return {'success': False, 'reason': 'Not implemented'}
 
 
 solution = SafetyInterlock
@@ -1120,46 +1033,27 @@ This is the exact execution model of every IL-capable PLC.`,
 
   for (const line of instructions) {
     const trimmed = line.trim();
+    // Skip empty lines and comments starting with // or (*
     if (!trimmed || trimmed.startsWith('//') || trimmed.startsWith('(*')) continue;
 
-    const [op, operand] = trimmed.split(/\\s+/);
-    const val = operand !== undefined ? vars[operand] : undefined;
+    // TODO: Step 1 — Split trimmed on whitespace: [op, operand]
+    //       Look up operand value in vars if operand exists
 
-    switch (op.toUpperCase()) {
-      case 'LD':
-        result = val;
-        log.push(\`LD \${operand} → result = \${result}\`);
-        break;
-      case 'ST':
-        vars[operand] = result;
-        log.push(\`ST \${operand} → \${operand} = \${result}\`);
-        break;
-      case 'AND':
-        result = result && val;
-        log.push(\`AND \${operand} → result = \${result}\`);
-        break;
-      case 'OR':
-        result = result || val;
-        log.push(\`OR \${operand} → result = \${result}\`);
-        break;
-      case 'NOT':
-        result = !result;
-        log.push(\`NOT → result = \${result}\`);
-        break;
-      case 'ANDN':
-        result = result && !val;
-        log.push(\`ANDN \${operand} → result = \${result}\`);
-        break;
-      case 'ORN':
-        result = result || !val;
-        log.push(\`ORN \${operand} → result = \${result}\`);
-        break;
-      default:
-        log.push(\`UNKNOWN: \${op}\`);
-    }
+    // TODO: Step 2 — Implement a switch/if-else on op.toUpperCase():
+    //   'LD'   → result = val; log push
+    //   'ST'   → vars[operand] = result; log push
+    //   'AND'  → result = result && val; log push
+    //   'OR'   → result = result || val; log push
+    //   'NOT'  → result = !result; log push (no operand)
+    //   'ANDN' → result = result && !val; log push
+    //   'ORN'  → result = result || !val; log push
+    //   default → log push 'UNKNOWN: <op>'
+
+    // TODO: implement above
   }
 
-  return { result, variables: vars, log };
+  // TODO: Step 3 — Return { result, variables: vars, log }
+  return { result: undefined, variables: vars, log };
 }
 
 const solution = runIL;
@@ -1188,39 +1082,28 @@ def run_il(instructions, variables):
 
     for line in instructions:
         trimmed = line.strip()
+        # Skip empty lines and comments
         if not trimmed or trimmed.startswith('//') or trimmed.startswith('(*'):
             continue
 
-        parts = re.split(r'\s+', trimmed)
-        op = parts[0].upper()
-        operand = parts[1] if len(parts) > 1 else None
-        val = vars_.get(operand) if operand is not None else None
+        # TODO: Step 1 — Split trimmed on whitespace: parts = re.split(r'\s+', trimmed)
+        #       op = parts[0].upper(), operand = parts[1] if len(parts) > 1 else None
+        #       val = vars_.get(operand) if operand else None
 
-        if op == 'LD':
-            result = val
-            log.append('LD {} -> result = {}'.format(operand, result))
-        elif op == 'ST':
-            vars_[operand] = result
-            log.append('ST {} -> {} = {}'.format(operand, operand, result))
-        elif op == 'AND':
-            result = result and val
-            log.append('AND {} -> result = {}'.format(operand, result))
-        elif op == 'OR':
-            result = result or val
-            log.append('OR {} -> result = {}'.format(operand, result))
-        elif op == 'NOT':
-            result = not result
-            log.append('NOT -> result = {}'.format(result))
-        elif op == 'ANDN':
-            result = result and not val
-            log.append('ANDN {} -> result = {}'.format(operand, result))
-        elif op == 'ORN':
-            result = result or not val
-            log.append('ORN {} -> result = {}'.format(operand, result))
-        else:
-            log.append('UNKNOWN: {}'.format(op))
+        # TODO: Step 2 — Implement if/elif chain on op:
+        #   'LD'   → result = val; log.append(...)
+        #   'ST'   → vars_[operand] = result; log.append(...)
+        #   'AND'  → result = result and val; log.append(...)
+        #   'OR'   → result = result or val; log.append(...)
+        #   'NOT'  → result = not result; log.append(...)
+        #   'ANDN' → result = result and not val; log.append(...)
+        #   'ORN'  → result = result or not val; log.append(...)
+        #   else   → log.append('UNKNOWN: ...')
 
-    return {'result': result, 'variables': vars_, 'log': log}
+        pass  # TODO: implement above
+
+    # TODO: Step 3 — Return {'result': result, 'variables': vars_, 'log': log}
+    return {'result': None, 'variables': vars_, 'log': log}
 
 
 solution = run_il
@@ -1249,39 +1132,29 @@ def run_il(instructions, variables):
 
     for line in instructions:
         trimmed = line.strip()
+        # Skip empty lines and comments
         if not trimmed or trimmed.startswith('//') or trimmed.startswith('(*'):
             continue
 
-        parts = re.split(r'\s+', trimmed)
-        op = parts[0].upper()
-        operand = parts[1] if len(parts) > 1 else None
-        val = vars_.get(operand) if operand is not None else None
+        # TODO: Step 1 — Split: parts = re.split(r'\s+', trimmed)
+        #       op = parts[0].upper(), operand = parts[1] if len(parts) > 1 else None
+        #       val = vars_.get(operand) if operand is not None else None
 
-        if op == 'LD':
-            result = val
-            log.append('LD {0} -> result = {1}'.format(operand, result))
-        elif op == 'ST':
-            vars_[operand] = result
-            log.append('ST {0} -> {0} = {1}'.format(operand, result))
-        elif op == 'AND':
-            result = result and val
-            log.append('AND {0} -> result = {1}'.format(operand, result))
-        elif op == 'OR':
-            result = result or val
-            log.append('OR {0} -> result = {1}'.format(operand, result))
-        elif op == 'NOT':
-            result = not result
-            log.append('NOT -> result = {0}'.format(result))
-        elif op == 'ANDN':
-            result = result and not val
-            log.append('ANDN {0} -> result = {1}'.format(operand, result))
-        elif op == 'ORN':
-            result = result or not val
-            log.append('ORN {0} -> result = {1}'.format(operand, result))
-        else:
-            log.append('UNKNOWN: {0}'.format(op))
+        # TODO: Step 2 — Implement if/elif chain on op:
+        #   'LD'   → result = val; log.append(...)
+        #   'ST'   → vars_[operand] = result; log.append(...)
+        #   'AND'  → result = result and val; log.append(...)
+        #   'OR'   → result = result or val; log.append(...)
+        #   'NOT'  → result = not result; log.append(...)
+        #   'ANDN' → result = result and not val; log.append(...)
+        #   'ORN'  → result = result or not val; log.append(...)
+        #   else   → log.append('UNKNOWN: ...')
+        #   Use .format() for log strings (Jython 2.7 — no f-strings)
 
-    return {'result': result, 'variables': vars_, 'log': log}
+        pass  # TODO: implement above
+
+    # TODO: Step 3 — Return {'result': result, 'variables': vars_, 'log': log}
+    return {'result': None, 'variables': vars_, 'log': log}
 
 
 solution = run_il
