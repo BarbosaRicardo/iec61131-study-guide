@@ -1,14 +1,14 @@
 export const CHAPTERS = [
-  { id: 'intro',        title: 'IEC 61131-3 Overview',              emoji: '📋', path: '/',            next: 'datatypes' },
-  { id: 'datatypes',    title: 'Data Types & Variables',            emoji: '🔢', path: '/datatypes',   prev: 'intro',      next: 'st' },
-  { id: 'st',           title: 'Structured Text (ST)',               emoji: '💻', path: '/st',          prev: 'datatypes',  next: 'ld' },
-  { id: 'ld',           title: 'Ladder Diagram (LD)',                emoji: '🪜', path: '/ld',          prev: 'st',         next: 'fbd' },
-  { id: 'fbd',          title: 'Function Block Diagram (FBD)',       emoji: '🔲', path: '/fbd',         prev: 'ld',         next: 'sfc' },
-  { id: 'sfc',          title: 'Sequential Function Chart (SFC)',    emoji: '🔀', path: '/sfc',         prev: 'fbd',        next: 'pou' },
-  { id: 'pou',          title: 'POUs — Program, Function, FB',      emoji: '🧩', path: '/pou',         prev: 'sfc',        next: 'rtac' },
-  { id: 'rtac',         title: 'IEC 61131-3 on the SEL RTAC',       emoji: '⚡', path: '/rtac',        prev: 'pou',        next: 'troubleshoot' },
-  { id: 'troubleshoot', title: 'Debugging & Troubleshooting',        emoji: '🔍', path: '/troubleshoot',prev: 'rtac',       next: 'lab' },
-  { id: 'lab',          title: 'Lab & Practice',                    emoji: '🧪', path: '/lab',         prev: 'troubleshoot' },
+  { id: 'intro', label: 'Ch 1: IEC 61131-3 Overview',        title: 'IEC 61131-3 Overview',              emoji: '📋', path: '/',            next: 'datatypes' },
+  { id: 'datatypes', label: 'Ch 2: Data Types & Variables',    title: 'Data Types & Variables',            emoji: '🔢', path: '/datatypes',   prev: 'intro',      next: 'st' },
+  { id: 'st', label: 'Ch 3: Structured Text',           title: 'Structured Text (ST)',               emoji: '💻', path: '/st',          prev: 'datatypes',  next: 'ld' },
+  { id: 'ld', label: 'Ch 4: Ladder Diagram',           title: 'Ladder Diagram (LD)',                emoji: '🪜', path: '/ld',          prev: 'st',         next: 'fbd' },
+  { id: 'fbd', label: 'Ch 5: Function Block Diagram',          title: 'Function Block Diagram (FBD)',       emoji: '🔲', path: '/fbd',         prev: 'ld',         next: 'sfc' },
+  { id: 'sfc', label: 'Ch 6: Sequential Function Chart',          title: 'Sequential Function Chart (SFC)',    emoji: '🔀', path: '/sfc',         prev: 'fbd',        next: 'pou' },
+  { id: 'pou', label: 'Ch 7: POUs',          title: 'POUs — Program, Function, FB',      emoji: '🧩', path: '/pou',         prev: 'sfc',        next: 'rtac' },
+  { id: 'rtac', label: 'Ch 8: IEC 61131-3 on RTAC',         title: 'IEC 61131-3 on the SEL RTAC',       emoji: '⚡', path: '/rtac',        prev: 'pou',        next: 'troubleshoot' },
+  { id: 'troubleshoot', label: 'Ch 9: Debugging & Troubleshooting', title: 'Debugging & Troubleshooting',        emoji: '🔍', path: '/troubleshoot',prev: 'rtac',       next: 'lab' },
+  { id: 'lab', label: 'Ch 10: Lab & Practice',          title: 'Lab & Practice',                    emoji: '🧪', path: '/lab',         prev: 'troubleshoot' },
 ]
 
 export const ANALOGIES = {
