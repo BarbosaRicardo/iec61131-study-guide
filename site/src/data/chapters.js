@@ -9,6 +9,7 @@ export const CHAPTERS = [
   { id: 'rtac', label: 'Ch 8: IEC 61131-3 on RTAC',         title: 'IEC 61131-3 on the SEL RTAC',       emoji: '⚡', path: '/rtac',        prev: 'pou',        next: 'troubleshoot' },
   { id: 'troubleshoot', label: 'Ch 9: Debugging & Troubleshooting', title: 'Debugging & Troubleshooting',        emoji: '🔍', path: '/troubleshoot',prev: 'rtac',       next: 'lab' },
   { id: 'lab', label: 'Ch 10: Lab & Practice',          title: 'Lab & Practice',                    emoji: '🧪', path: '/lab',         prev: 'troubleshoot' },
+  { id: 'flashcards', label: 'Flashcards', emoji: '🃏', path: '/flashcards' },
 ]
 
 export const ANALOGIES = {

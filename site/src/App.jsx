@@ -11,6 +11,7 @@ import POUs from './pages/POUs'
 import RTACSpecific from './pages/RTACSpecific'
 import Troubleshoot from './pages/Troubleshoot'
 import Lab from './pages/Lab'
+import Flashcards from './pages/Flashcards'
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
           <Route path="/rtac"         element={<RTACSpecific />} />
           <Route path="/troubleshoot" element={<Troubleshoot />} />
           <Route path="/lab"          element={<Lab />} />
+          <Route path="/flashcards"   element={<Flashcards />} />
         </Routes>
       </main>
     </div>
