@@ -4,8 +4,10 @@ import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
 import Quiz from '../components/Quiz'
+import ChapterExercise from '../components/ChapterExercise'
 import { ANALOGIES } from '../data/chapters'
 import { QUIZZES } from '../data/quizzes'
+import { IEC_CHAPTER_EXERCISES } from '../data/chapterExercises'
 
 export default function FunctionBlockDiagram() {
   return (
@@ -125,6 +127,8 @@ rProcessVar ──────  CTRL_PID.X
       {QUIZZES.fbd && QUIZZES.fbd.length > 0 && (
         <Quiz chapterId="fbd" questions={QUIZZES.fbd} level={1} />
       )}
+
+      <ChapterExercise exercise={IEC_CHAPTER_EXERCISES.fbd} />
     </ChapterLayout>
   )
 }

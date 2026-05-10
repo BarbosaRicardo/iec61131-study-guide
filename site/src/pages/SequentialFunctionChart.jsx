@@ -4,8 +4,10 @@ import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
 import Quiz from '../components/Quiz'
+import ChapterExercise from '../components/ChapterExercise'
 import { ANALOGIES } from '../data/chapters'
 import { QUIZZES } from '../data/quizzes'
+import { IEC_CHAPTER_EXERCISES } from '../data/chapterExercises'
 
 export default function SequentialFunctionChart() {
   return (
@@ -143,6 +145,8 @@ export default function SequentialFunctionChart() {
       {QUIZZES.sfc && QUIZZES.sfc.length > 0 && (
         <Quiz chapterId="sfc" questions={QUIZZES.sfc} level={1} />
       )}
+
+      <ChapterExercise exercise={IEC_CHAPTER_EXERCISES.sfc} />
     </ChapterLayout>
   )
 }

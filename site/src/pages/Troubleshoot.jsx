@@ -4,8 +4,10 @@ import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
 import Quiz from '../components/Quiz'
+import ChapterExercise from '../components/ChapterExercise'
 import { ANALOGIES } from '../data/chapters'
 import { QUIZZES } from '../data/quizzes'
+import { IEC_CHAPTER_EXERCISES } from '../data/chapterExercises'
 
 export default function Troubleshoot() {
   return (
@@ -154,6 +156,8 @@ END_FUNCTION`}</pre>
       {QUIZZES.troubleshoot && QUIZZES.troubleshoot.length > 0 && (
         <Quiz chapterId="troubleshoot" questions={QUIZZES.troubleshoot} level={1} />
       )}
+
+      <ChapterExercise exercise={IEC_CHAPTER_EXERCISES.troubleshoot} />
     </ChapterLayout>
   )
 }

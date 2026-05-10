@@ -4,8 +4,10 @@ import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
 import Quiz from '../components/Quiz'
+import ChapterExercise from '../components/ChapterExercise'
 import { ANALOGIES } from '../data/chapters'
 import { QUIZZES } from '../data/quizzes'
+import { IEC_CHAPTER_EXERCISES } from '../data/chapterExercises'
 
 export default function Intro() {
   return (
@@ -84,6 +86,8 @@ export default function Intro() {
       {QUIZZES.intro && QUIZZES.intro.length > 0 && (
         <Quiz chapterId="intro" questions={QUIZZES.intro} level={1} />
       )}
+
+      <ChapterExercise exercise={IEC_CHAPTER_EXERCISES.intro} />
     </ChapterLayout>
   )
 }

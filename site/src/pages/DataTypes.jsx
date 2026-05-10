@@ -4,8 +4,10 @@ import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
 import Quiz from '../components/Quiz'
+import ChapterExercise from '../components/ChapterExercise'
 import { ANALOGIES } from '../data/chapters'
 import { QUIZZES } from '../data/quizzes'
+import { IEC_CHAPTER_EXERCISES } from '../data/chapterExercises'
 
 export default function DataTypes() {
   return (
@@ -170,6 +172,8 @@ rReal := STRING_TO_REAL(sStr); (* Parse string as float *)`}</pre>
       {QUIZZES.datatypes && QUIZZES.datatypes.length > 0 && (
         <Quiz chapterId="datatypes" questions={QUIZZES.datatypes} level={1} />
       )}
+
+      <ChapterExercise exercise={IEC_CHAPTER_EXERCISES.datatypes} />
     </ChapterLayout>
   )
 }

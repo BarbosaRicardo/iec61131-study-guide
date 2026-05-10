@@ -4,8 +4,10 @@ import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
 import Quiz from '../components/Quiz'
+import ChapterExercise from '../components/ChapterExercise'
 import { ANALOGIES } from '../data/chapters'
 import { QUIZZES } from '../data/quizzes'
+import { IEC_CHAPTER_EXERCISES } from '../data/chapterExercises'
 
 export default function StructuredText() {
   return (
@@ -214,6 +216,8 @@ wResult := SHR(wA, 2);  (* Shift right 2 bits *)`}</pre>
       {QUIZZES.st && QUIZZES.st.length > 0 && (
         <Quiz chapterId="st" questions={QUIZZES.st} level={1} />
       )}
+
+      <ChapterExercise exercise={IEC_CHAPTER_EXERCISES.st} />
     </ChapterLayout>
   )
 }

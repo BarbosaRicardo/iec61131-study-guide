@@ -4,8 +4,10 @@ import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
 import Quiz from '../components/Quiz'
+import ChapterExercise from '../components/ChapterExercise'
 import { ANALOGIES } from '../data/chapters'
 import { QUIZZES } from '../data/quizzes'
+import { IEC_CHAPTER_EXERCISES } from '../data/chapterExercises'
 
 export default function RTACSpecific() {
   return (
@@ -157,6 +159,8 @@ END_IF;
       {QUIZZES.rtac && QUIZZES.rtac.length > 0 && (
         <Quiz chapterId="rtac" questions={QUIZZES.rtac} level={1} />
       )}
+
+      <ChapterExercise exercise={IEC_CHAPTER_EXERCISES.rtac} />
     </ChapterLayout>
   )
 }
