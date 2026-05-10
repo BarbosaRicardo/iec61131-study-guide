@@ -4,8 +4,10 @@ import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
 import Quiz from '../components/Quiz'
+import CodeLab from '../components/CodeLab'
 import { ANALOGIES } from '../data/chapters'
 import { QUIZZES } from '../data/quizzes'
+import { IEC_LAB } from '../data/labExercises'
 
 export default function Lab() {
   return (
@@ -15,6 +17,17 @@ export default function Lab() {
       emoji="🧪"
       prev="troubleshoot"
     >
+      <section>
+        <h2 className="text-xl font-bold text-white mb-2">IEC 61131-3 Code Lab</h2>
+        <p className="text-slate-400">
+          Six exercises across three levels: validate IEC data types, emulate a TON timer, implement
+          R_TRIG/F_TRIG edge detection with a scan cycle simulator, build an SFC interpreter,
+          program a dual-channel safety interlock, and execute Instruction List (IL) programs.
+        </p>
+      </section>
+
+      <CodeLab exercises={IEC_LAB} />
+
       <p>
         There is exactly one way to learn IEC 61131-3 programming: write programs. Reading about Structured Text syntax does not build the intuition for scan-cycle thinking, state machine design, or FB instance management. You need to run code, break things, fix them, and understand why they broke.
       </p>
