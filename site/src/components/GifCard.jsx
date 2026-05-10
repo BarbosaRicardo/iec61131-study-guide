@@ -1,11 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { GIFS } from '../data/gifs'
 
+// Tenor demo API key (public / rate-limited for testing)
+const TENOR_KEY = 'LIVDSRZULELA'
+
+function buildGiphyUrl(id) {
+  if (id.startsWith('http')) return id
+  return `https://media1.giphy.com/media/${id}/giphy.gif`
+}
+
 export default function GifCard({ gifKey, caption, side = 'right', className = '' }) {
-  const [error, setError] = useState(false)
+  const [url, setUrl] = useState(null)
+  const [hidden, setHidden] = useState(false)
   const id = GIFS[gifKey]
 
-  if (!id || error) return null
+  useEffect(() => {
+    if (!id) { setHidden(true); return }
+    if (id.startsWith('tenor:')) {
+      const tenorId = id.slice(6)
+      fetch(`https://tenor.googleapis.com/v2/posts?ids=${tenorId}&key=${TENOR_KEY}&media_filter=gif`)
+        .then(r => r.json())
+        .then(data => {
+          const gifUrl = data.results?.[0]?.media_formats?.gif?.url
+          if (gifUrl) setUrl(gifUrl)
+          else setHidden(true)
+        })
+        .catch(() => setHidden(true))
+    } else {
+      setUrl(buildGiphyUrl(id))
+    }
+  }, [id])
+
+  if (!id || hidden || !url) return null
 
   return (
     <div className={`flex ${side === 'left' ? 'justify-start' : 'justify-end'} my-4 ${className}`}>
@@ -21,15 +47,13 @@ export default function GifCard({ gifKey, caption, side = 'right', className = '
             boxShadow: '0 8px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(59,130,246,0.1)',
           }}
         >
-          <iframe
-            src={`https://giphy.com/embed/${id}`}
+          <img
+            src={url}
+            alt={caption || gifKey}
             width="200"
             height="150"
-            style={{ position: 'absolute', top: 0, left: 0, border: 'none' }}
-            frameBorder="0"
-            allowFullScreen
-            title={caption || gifKey}
-            onError={() => setError(true)}
+            style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+            onError={() => setHidden(true)}
           />
         </div>
         {caption && (

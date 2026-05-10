@@ -1,14 +1,14 @@
 // IEC 61131-3 Study Guide — PLC programming, ladder logic, automation
 // All IDs unique globally across the entire study guide platform
 export const GIFS = {
-  cables:    'Ov6JMwHbK0ukA',        // wired up laptop — I/O wiring complete
-  celebrate: 'g9582DNuQppxC',        // confetti — program compiled without errors
-  done:      '26u4exk4zsAqbhHoY',   // celebrate done — SFC sequence complete
-  error:     'IecgkFKRGZ09G',        // IT Crowd style — have you tried cycling power?
-  math:      'xT0xeMA5HVDMID7wZi',  // thinking it through — TON timer math
-  nerd:      'ZVik7pIoJFB6',         // puzzled thinking — CASE statement logic
-  robot:     'LpiVLmVBwrJsL4A6hV',  // dancing robot — automation achieved
-  thinking:  'jUwpNzg9IcyrK',        // hmm thinking — state machine design
-  tryAgain:  '3ov5WgedaUFaFblHlW',  // ugh try again — scan cycle missed
-  welcome:   'l3q2V4KR8VMfmElBK',   // terminal typing — writing Structured Text
+  cables:    'tenor:9653346294078371029', // RJ45 cable — I/O wiring complete
+  celebrate: 'tenor:13473667354835139549', // confetti celebrate done — program compiled without errors
+  done:      'tenor:7237536820126860644', // pen drop mic drop done — SFC sequence complete
+  error:     'tenor:7562894386664896433', // blue screen of death — have you tried cycling power?
+  math:      'tenor:7230905246667097155', // confused thinking befuddled — TON timer math
+  nerd:      'tenor:14552023917622459365', // python memes snake fun — CASE statement logic
+  robot:     'tenor:4939428',             // robotics robot arm — automation achieved
+  thinking:  'tenor:15044633',           // mind blown shocked done — state machine design
+  tryAgain:  'tenor:2843452016211546109', // redo try again retry — scan cycle missed
+  welcome:   'tenor:22536990',           // CLI command prompt — writing Structured Text
 }
