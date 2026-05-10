@@ -73,6 +73,102 @@ console.log(validateType('INT', 32767));    // valid
 console.log(validateType('INT', 32768));    // invalid: overflow
 console.log(validateType('USINT', -1));     // invalid: negative
 console.log(validateType('BOOL', true));    // valid`,
+    starterPy: `TYPE_RANGES = {
+    'SINT':  [-128, 127],
+    'INT':   [-32768, 32767],
+    'DINT':  [-2147483648, 2147483647],
+    'USINT': [0, 255],
+    'UINT':  [0, 65535],
+    'UDINT': [0, 4294967295],
+}
+
+def validate_type(type_name, value):
+    upper = type_name.upper()
+
+    if upper == 'BOOL':
+        valid = value is True or value is False or value == 0 or value == 1
+        return {
+            'valid': valid,
+            'type': 'BOOL',
+            'range': None,
+            'reason': 'OK' if valid else 'BOOL must be True/False or 0/1',
+        }
+
+    if upper in ('REAL', 'LREAL'):
+        import math
+        valid = isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value)
+        return {
+            'valid': valid,
+            'type': upper,
+            'range': None,
+            'reason': 'OK' if valid else 'Must be a finite number',
+        }
+
+    range_ = TYPE_RANGES.get(upper)
+    if range_ is None:
+        return {'valid': False, 'type': upper, 'range': None, 'reason': 'Unknown IEC type: ' + type_name}
+
+    if not isinstance(value, int) or isinstance(value, bool):
+        return {'valid': False, 'type': upper, 'range': range_, 'reason': 'Integer types require integer values'}
+
+    valid = range_[0] <= value <= range_[1]
+    reason = 'OK' if valid else 'Value {} out of {} range [{}, {}]'.format(value, upper, range_[0], range_[1])
+    return {'valid': valid, 'type': upper, 'range': range_, 'reason': reason}
+
+solution = validate_type
+
+print(validate_type('INT', 32767))    # valid
+print(validate_type('INT', 32768))    # invalid: overflow
+print(validate_type('USINT', -1))     # invalid: negative
+print(validate_type('BOOL', True))    # valid`,
+    starterJython: `TYPE_RANGES = {
+    'SINT':  [-128, 127],
+    'INT':   [-32768, 32767],
+    'DINT':  [-2147483648, 2147483647],
+    'USINT': [0, 255],
+    'UINT':  [0, 65535],
+    'UDINT': [0, 4294967295],
+}
+
+def validate_type(type_name, value):
+    upper = type_name.upper()
+
+    if upper == 'BOOL':
+        valid = value is True or value is False or value == 0 or value == 1
+        return {
+            'valid': valid,
+            'type': 'BOOL',
+            'range': None,
+            'reason': 'OK' if valid else 'BOOL must be True/False or 0/1',
+        }
+
+    if upper in ('REAL', 'LREAL'):
+        import math
+        valid = isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(float(value))
+        return {
+            'valid': valid,
+            'type': upper,
+            'range': None,
+            'reason': 'OK' if valid else 'Must be a finite number',
+        }
+
+    range_ = TYPE_RANGES.get(upper)
+    if range_ is None:
+        return {'valid': False, 'type': upper, 'range': None, 'reason': 'Unknown IEC type: ' + type_name}
+
+    if not isinstance(value, int) or isinstance(value, bool):
+        return {'valid': False, 'type': upper, 'range': range_, 'reason': 'Integer types require integer values'}
+
+    valid = range_[0] <= value <= range_[1]
+    reason = 'OK' if valid else 'Value {0} out of {1} range [{2}, {3}]'.format(value, upper, range_[0], range_[1])
+    return {'valid': valid, 'type': upper, 'range': range_, 'reason': reason}
+
+solution = validate_type
+
+print(validate_type('INT', 32767))
+print(validate_type('INT', 32768))
+print(validate_type('USINT', -1))
+print(validate_type('BOOL', True))`,
     tests: [
       { description: 'validateType("INT", 32767) → valid:true' },
       { description: 'validateType("INT", 32768) → valid:false (overflow)' },
@@ -157,6 +253,66 @@ for (let scan = 0; scan < 55; scan++) {
 }
 // t=5000ms: Q=true, ET=5000
 // t=5500ms: Q=true, ET=5000 (ET stays at PT)`,
+    starterPy: `class TON:
+    def __init__(self, preset_ms):
+        self.PT = preset_ms
+        self.ET = 0
+        self.Q = False
+
+    def update(self, in_signal, dt_ms):
+        if in_signal:
+            self.ET = min(self.ET + dt_ms, self.PT)  # accumulate, cap at PT
+            self.Q = self.ET >= self.PT
+        else:
+            self.ET = 0
+            self.Q = False
+        return {'Q': self.Q, 'ET': self.ET}
+
+    def reset(self):
+        self.ET = 0
+        self.Q = False
+
+solution = TON
+
+# Simulate 5-second on-delay with 100ms scan cycle
+timer = TON(5000)
+elapsed = 0
+for scan in range(55):
+    result = timer.update(True, 100)
+    elapsed += 100
+    if scan == 49 or scan == 54:
+        print('t={}ms: Q={}, ET={}ms'.format(elapsed, result['Q'], result['ET']))
+# t=5000ms: Q=True, ET=5000
+# t=5500ms: Q=True, ET=5000 (ET stays at PT)`,
+    starterJython: `class TON:
+    def __init__(self, preset_ms):
+        self.PT = preset_ms
+        self.ET = 0
+        self.Q = False
+
+    def update(self, in_signal, dt_ms):
+        if in_signal:
+            self.ET = min(self.ET + dt_ms, self.PT)  # accumulate, cap at PT
+            self.Q = self.ET >= self.PT
+        else:
+            self.ET = 0
+            self.Q = False
+        return {'Q': self.Q, 'ET': self.ET}
+
+    def reset(self):
+        self.ET = 0
+        self.Q = False
+
+solution = TON
+
+# Simulate 5-second on-delay with 100ms scan cycle
+timer = TON(5000)
+elapsed = 0
+for scan in range(55):
+    result = timer.update(True, 100)
+    elapsed += 100
+    if scan == 49 or scan == 54:
+        print('t={0}ms: Q={1}, ET={2}ms'.format(elapsed, result['Q'], result['ET']))`,
     tests: [
       { description: 'Q=false while ET < PT (IN=true for 3 scans of 1000ms vs PT=5000ms)' },
       { description: 'Q=true when ET >= PT (after 5 scans of 1000ms, PT=5000ms)' },
@@ -283,6 +439,107 @@ signals.forEach((s, i) => {
   console.log(\`Scan \${i}: IN=\${s}, Q=\${Q}\`);
 });
 // Only scan 2 should have Q=true`,
+    starterPy: `class R_TRIG:
+    def __init__(self):
+        self._prev = False
+
+    def update(self, in_signal):
+        Q = in_signal is True and self._prev is False
+        self._prev = in_signal
+        return {'Q': Q}
+
+
+class F_TRIG:
+    def __init__(self):
+        self._prev = False
+
+    def update(self, in_signal):
+        Q = in_signal is False and self._prev is True
+        self._prev = in_signal
+        return {'Q': Q}
+
+
+class ScanCycleSimulator:
+    def __init__(self, scan_time_ms=10):
+        self.scan_time_ms = scan_time_ms
+        self.blocks = {}
+
+    def add_block(self, name, block):
+        self.blocks[name] = block
+        return self
+
+    def run(self, signals, scan_count):
+        history = []
+        for scan in range(scan_count):
+            outputs = {}
+            for name, block in self.blocks.items():
+                signal = signals.get(name, False)
+                # Signal can be a callable (dynamic) or static value
+                in_val = signal(scan) if callable(signal) else signal
+                outputs[name] = block.update(in_val)
+            history.append({'scan': scan, 'outputs': outputs})
+        return history
+
+
+solution = {'R_TRIG': R_TRIG, 'F_TRIG': F_TRIG, 'ScanCycleSimulator': ScanCycleSimulator}
+
+# Test: pushbutton press (high for 2 scans)
+trig = R_TRIG()
+signals_list = [False, False, True, True, False]
+for i, s in enumerate(signals_list):
+    result = trig.update(s)
+    print('Scan {}: IN={}, Q={}'.format(i, s, result['Q']))
+# Only scan 2 should have Q=True`,
+    starterJython: `class R_TRIG:
+    def __init__(self):
+        self._prev = False
+
+    def update(self, in_signal):
+        Q = in_signal is True and self._prev is False
+        self._prev = in_signal
+        return {'Q': Q}
+
+
+class F_TRIG:
+    def __init__(self):
+        self._prev = False
+
+    def update(self, in_signal):
+        Q = in_signal is False and self._prev is True
+        self._prev = in_signal
+        return {'Q': Q}
+
+
+class ScanCycleSimulator:
+    def __init__(self, scan_time_ms=10):
+        self.scan_time_ms = scan_time_ms
+        self.blocks = {}
+
+    def add_block(self, name, block):
+        self.blocks[name] = block
+        return self
+
+    def run(self, signals, scan_count):
+        history = []
+        for scan in range(scan_count):
+            outputs = {}
+            for name in self.blocks:
+                block = self.blocks[name]
+                signal = signals.get(name, False)
+                in_val = signal(scan) if callable(signal) else signal
+                outputs[name] = block.update(in_val)
+            history.append({'scan': scan, 'outputs': outputs})
+        return history
+
+
+solution = {'R_TRIG': R_TRIG, 'F_TRIG': F_TRIG, 'ScanCycleSimulator': ScanCycleSimulator}
+
+# Test: pushbutton press (high for 2 scans)
+trig = R_TRIG()
+signals_list = [False, False, True, True, False]
+for i, s in enumerate(signals_list):
+    result = trig.update(s)
+    print('Scan {0}: IN={1}, Q={2}'.format(i, s, result['Q']))`,
     tests: [
       { description: 'R_TRIG: Q=true only on the rising edge scan (FALSE→TRUE transition)' },
       { description: 'R_TRIG: Q=false on second and subsequent true scans (held high)' },
@@ -415,6 +672,114 @@ console.log(sfc.update({ start_cmd: true }));  // → PRIMING
 console.log(sfc.update({ pressure_ok: true })); // → RUNNING
 console.log(sfc.update({ pump: true }));        // stays RUNNING (no stop)
 console.log(sfc.update({ stop_cmd: true }));    // → IDLE`,
+    starterPy: `class SFC:
+    def __init__(self, steps, transitions):
+        self.steps = steps
+        self.transitions = transitions
+        self.current_step_id = steps[0]['id'] if steps else 0
+
+    def update(self, inputs):
+        # Find transitions from current step
+        avail = [t for t in self.transitions if t['from'] == self.current_step_id]
+        transitioned = False
+
+        for trans in avail:
+            if trans['condition'](inputs):
+                self.current_step_id = trans['to']
+                transitioned = True
+                break  # only one transition per scan
+
+        active_step = next((s for s in self.steps if s['id'] == self.current_step_id), None)
+        action_output = active_step['action'](inputs) if active_step and active_step.get('action') else {}
+
+        return {
+            'activeStep': active_step['name'] if active_step else 'Unknown',
+            'actionOutput': action_output,
+            'transitioned': transitioned,
+        }
+
+    def get_current_step(self):
+        return next((s for s in self.steps if s['id'] == self.current_step_id), None)
+
+    def reset(self):
+        self.current_step_id = self.steps[0]['id'] if self.steps else 0
+
+
+solution = SFC
+
+# Pump startup sequence
+steps = [
+    {'id': 0, 'name': 'IDLE',    'action': lambda inputs: {'pump': False, 'valve': False}},
+    {'id': 1, 'name': 'PRIMING', 'action': lambda inputs: {'pump': False, 'valve': True}},
+    {'id': 2, 'name': 'RUNNING', 'action': lambda inputs: {'pump': True,  'valve': True}},
+]
+transitions = [
+    {'from': 0, 'to': 1, 'condition': lambda inputs: inputs.get('start_cmd') is True},
+    {'from': 1, 'to': 2, 'condition': lambda inputs: inputs.get('pressure_ok') is True},
+    {'from': 2, 'to': 0, 'condition': lambda inputs: inputs.get('stop_cmd') is True},
+]
+sfc = SFC(steps, transitions)
+print(sfc.update({'start_cmd': True}))   # PRIMING
+print(sfc.update({'pressure_ok': True})) # RUNNING
+print(sfc.update({'pump': True}))        # stays RUNNING
+print(sfc.update({'stop_cmd': True}))    # IDLE`,
+    starterJython: `class SFC:
+    def __init__(self, steps, transitions):
+        self.steps = steps
+        self.transitions = transitions
+        self.current_step_id = steps[0]['id'] if steps else 0
+
+    def update(self, inputs):
+        avail = [t for t in self.transitions if t['from'] == self.current_step_id]
+        transitioned = False
+
+        for trans in avail:
+            if trans['condition'](inputs):
+                self.current_step_id = trans['to']
+                transitioned = True
+                break
+
+        active_step = None
+        for s in self.steps:
+            if s['id'] == self.current_step_id:
+                active_step = s
+                break
+
+        action_output = active_step['action'](inputs) if active_step and active_step.get('action') else {}
+
+        return {
+            'activeStep': active_step['name'] if active_step else 'Unknown',
+            'actionOutput': action_output,
+            'transitioned': transitioned,
+        }
+
+    def get_current_step(self):
+        for s in self.steps:
+            if s['id'] == self.current_step_id:
+                return s
+        return None
+
+    def reset(self):
+        self.current_step_id = self.steps[0]['id'] if self.steps else 0
+
+
+solution = SFC
+
+steps = [
+    {'id': 0, 'name': 'IDLE',    'action': lambda inputs: {'pump': False, 'valve': False}},
+    {'id': 1, 'name': 'PRIMING', 'action': lambda inputs: {'pump': False, 'valve': True}},
+    {'id': 2, 'name': 'RUNNING', 'action': lambda inputs: {'pump': True,  'valve': True}},
+]
+transitions = [
+    {'from': 0, 'to': 1, 'condition': lambda inputs: inputs.get('start_cmd') is True},
+    {'from': 1, 'to': 2, 'condition': lambda inputs: inputs.get('pressure_ok') is True},
+    {'from': 2, 'to': 0, 'condition': lambda inputs: inputs.get('stop_cmd') is True},
+]
+sfc = SFC(steps, transitions)
+print(sfc.update({'start_cmd': True}))
+print(sfc.update({'pressure_ok': True}))
+print(sfc.update({'pump': True}))
+print(sfc.update({'stop_cmd': True}))`,
     tests: [
       { description: 'start_cmd=true transitions from IDLE to PRIMING' },
       { description: 'pressure_ok=true transitions from PRIMING to RUNNING' },
@@ -562,6 +927,124 @@ console.log(interlock.update(true, false));  // fault=true, latched
 
 console.log(interlock.reset(9999));          // wrong code
 console.log(interlock.reset(1234));          // correct code, clears fault`,
+    starterPy: `class SafetyInterlock:
+    def __init__(self, discrepancy_time_ms=500, scan_time_ms=10):
+        self.discrepancy_time_ms = discrepancy_time_ms
+        self.scan_time_ms = scan_time_ms
+        self._fault = False
+        self._fault_reason = ''
+        self._discrepancy_ms = 0
+
+    def update(self, ch1, ch2):
+        if self._fault:
+            # Latched fault — only reset() can clear
+            return {
+                'safeState': False,
+                'fault': True,
+                'discrepancyMs': self._discrepancy_ms,
+                'faultReason': self._fault_reason,
+            }
+
+        agree = (ch1 == ch2)
+
+        if not agree:
+            self._discrepancy_ms += self.scan_time_ms
+            if self._discrepancy_ms >= self.discrepancy_time_ms:
+                self._fault = True
+                self._fault_reason = 'CH1={}, CH2={} disagree for {}ms'.format(
+                    ch1, ch2, self._discrepancy_ms)
+        else:
+            self._discrepancy_ms = 0  # reset discrepancy timer when channels agree
+
+        safe_state = ch1 is True and ch2 is True and not self._fault
+
+        return {
+            'safeState': safe_state,
+            'fault': self._fault,
+            'discrepancyMs': self._discrepancy_ms,
+            'faultReason': self._fault_reason if self._fault else '',
+        }
+
+    def reset(self, auth_code):
+        if auth_code != 1234:
+            return {'success': False, 'reason': 'Invalid authorization code'}
+        # TODO: clear fault state
+        self._fault = False
+        self._fault_reason = ''
+        self._discrepancy_ms = 0
+        return {'success': True}
+
+
+solution = SafetyInterlock
+
+interlock = SafetyInterlock(500, 100)
+print(interlock.update(True, True))    # safeState=True
+print(interlock.update(False, False))  # safeState=False, no fault
+
+for i in range(6):
+    interlock.update(True, False)
+print(interlock.update(True, False))   # fault=True, latched
+
+print(interlock.reset(9999))           # wrong code
+print(interlock.reset(1234))           # correct code, clears fault`,
+    starterJython: `class SafetyInterlock:
+    def __init__(self, discrepancy_time_ms=500, scan_time_ms=10):
+        self.discrepancy_time_ms = discrepancy_time_ms
+        self.scan_time_ms = scan_time_ms
+        self._fault = False
+        self._fault_reason = ''
+        self._discrepancy_ms = 0
+
+    def update(self, ch1, ch2):
+        if self._fault:
+            return {
+                'safeState': False,
+                'fault': True,
+                'discrepancyMs': self._discrepancy_ms,
+                'faultReason': self._fault_reason,
+            }
+
+        agree = (ch1 == ch2)
+
+        if not agree:
+            self._discrepancy_ms += self.scan_time_ms
+            if self._discrepancy_ms >= self.discrepancy_time_ms:
+                self._fault = True
+                self._fault_reason = 'CH1={0}, CH2={1} disagree for {2}ms'.format(
+                    ch1, ch2, self._discrepancy_ms)
+        else:
+            self._discrepancy_ms = 0
+
+        safe_state = ch1 is True and ch2 is True and not self._fault
+
+        return {
+            'safeState': safe_state,
+            'fault': self._fault,
+            'discrepancyMs': self._discrepancy_ms,
+            'faultReason': self._fault_reason if self._fault else '',
+        }
+
+    def reset(self, auth_code):
+        if auth_code != 1234:
+            return {'success': False, 'reason': 'Invalid authorization code'}
+        self._fault = False
+        self._fault_reason = ''
+        self._discrepancy_ms = 0
+        return {'success': True}
+
+
+solution = SafetyInterlock
+
+interlock = SafetyInterlock(500, 100)
+print(interlock.update(True, True))
+print(interlock.update(False, False))
+
+for i in range(6):
+    interlock.update(True, False)
+print(interlock.update(True, False))
+
+print(interlock.reset(9999))
+print(interlock.reset(1234))`,
     tests: [
       { description: 'Both channels TRUE → safeState:true, fault:false' },
       { description: 'Discrepancy > limit → fault latches, safeState:false' },
@@ -696,6 +1179,127 @@ console.log('Motor_Run:', result1.variables.Motor_Run); // true
 const vars2 = { Start_PB: false, Seal_In: true, E_Stop: true, Motor_Run: true };
 const result2 = runIL(program, vars2);
 console.log('Motor_Run (E-Stop active):', result2.variables.Motor_Run); // false`,
+    starterPy: `import re
+
+def run_il(instructions, variables):
+    result = None
+    vars_ = dict(variables)  # don't mutate original
+    log = []
+
+    for line in instructions:
+        trimmed = line.strip()
+        if not trimmed or trimmed.startswith('//') or trimmed.startswith('(*'):
+            continue
+
+        parts = re.split(r'\s+', trimmed)
+        op = parts[0].upper()
+        operand = parts[1] if len(parts) > 1 else None
+        val = vars_.get(operand) if operand is not None else None
+
+        if op == 'LD':
+            result = val
+            log.append('LD {} -> result = {}'.format(operand, result))
+        elif op == 'ST':
+            vars_[operand] = result
+            log.append('ST {} -> {} = {}'.format(operand, operand, result))
+        elif op == 'AND':
+            result = result and val
+            log.append('AND {} -> result = {}'.format(operand, result))
+        elif op == 'OR':
+            result = result or val
+            log.append('OR {} -> result = {}'.format(operand, result))
+        elif op == 'NOT':
+            result = not result
+            log.append('NOT -> result = {}'.format(result))
+        elif op == 'ANDN':
+            result = result and not val
+            log.append('ANDN {} -> result = {}'.format(operand, result))
+        elif op == 'ORN':
+            result = result or not val
+            log.append('ORN {} -> result = {}'.format(operand, result))
+        else:
+            log.append('UNKNOWN: {}'.format(op))
+
+    return {'result': result, 'variables': vars_, 'log': log}
+
+
+solution = run_il
+
+# Classic motor run circuit
+program = [
+    'LD  Start_PB',
+    'OR  Seal_In',
+    'ANDN E_Stop',
+    'ST  Motor_Run',
+]
+
+vars1 = {'Start_PB': True, 'Seal_In': False, 'E_Stop': False, 'Motor_Run': False}
+result1 = run_il(program, vars1)
+print('Motor_Run:', result1['variables']['Motor_Run'])  # True
+
+vars2 = {'Start_PB': False, 'Seal_In': True, 'E_Stop': True, 'Motor_Run': True}
+result2 = run_il(program, vars2)
+print('Motor_Run (E-Stop active):', result2['variables']['Motor_Run'])  # False`,
+    starterJython: `import re
+
+def run_il(instructions, variables):
+    result = None
+    vars_ = dict(variables)
+    log = []
+
+    for line in instructions:
+        trimmed = line.strip()
+        if not trimmed or trimmed.startswith('//') or trimmed.startswith('(*'):
+            continue
+
+        parts = re.split(r'\s+', trimmed)
+        op = parts[0].upper()
+        operand = parts[1] if len(parts) > 1 else None
+        val = vars_.get(operand) if operand is not None else None
+
+        if op == 'LD':
+            result = val
+            log.append('LD {0} -> result = {1}'.format(operand, result))
+        elif op == 'ST':
+            vars_[operand] = result
+            log.append('ST {0} -> {0} = {1}'.format(operand, result))
+        elif op == 'AND':
+            result = result and val
+            log.append('AND {0} -> result = {1}'.format(operand, result))
+        elif op == 'OR':
+            result = result or val
+            log.append('OR {0} -> result = {1}'.format(operand, result))
+        elif op == 'NOT':
+            result = not result
+            log.append('NOT -> result = {0}'.format(result))
+        elif op == 'ANDN':
+            result = result and not val
+            log.append('ANDN {0} -> result = {1}'.format(operand, result))
+        elif op == 'ORN':
+            result = result or not val
+            log.append('ORN {0} -> result = {1}'.format(operand, result))
+        else:
+            log.append('UNKNOWN: {0}'.format(op))
+
+    return {'result': result, 'variables': vars_, 'log': log}
+
+
+solution = run_il
+
+program = [
+    'LD  Start_PB',
+    'OR  Seal_In',
+    'ANDN E_Stop',
+    'ST  Motor_Run',
+]
+
+vars1 = {'Start_PB': True, 'Seal_In': False, 'E_Stop': False, 'Motor_Run': False}
+result1 = run_il(program, vars1)
+print('Motor_Run:', result1['variables']['Motor_Run'])
+
+vars2 = {'Start_PB': False, 'Seal_In': True, 'E_Stop': True, 'Motor_Run': True}
+result2 = run_il(program, vars2)
+print('Motor_Run (E-Stop active):', result2['variables']['Motor_Run'])`,
     tests: [
       { description: 'LD + ST: load variable and store to another' },
       { description: 'ANDN E_Stop: E-Stop active (true) causes result to go false' },
