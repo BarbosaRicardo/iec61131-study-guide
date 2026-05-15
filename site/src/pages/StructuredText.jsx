@@ -3,10 +3,9 @@ import ChapterLayout from '../components/ChapterLayout'
 import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
-import Quiz from '../components/Quiz'
+import QuizLevels from '../components/QuizLevels'
 import ChapterExercise from '../components/ChapterExercise'
 import { ANALOGIES } from '../data/chapters'
-import { QUIZZES } from '../data/quizzes'
 import { IEC_CHAPTER_EXERCISES } from '../data/chapterExercises'
 
 export default function StructuredText() {
@@ -29,7 +28,7 @@ export default function StructuredText() {
         In ST, assignment is <code>:=</code>. The equals sign <code>=</code> is used only for comparison in expressions. Using <code>=</code> when you mean <code>:=</code> is a compile error. This is one of the first things new ST programmers encounter and it trips everyone up exactly once.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Basic Syntax</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Basic Syntax</h2>
 
       <pre>{`(* This is a block comment — spans multiple lines *)
 // This is a line comment
@@ -53,7 +52,7 @@ IF bPermissive = TRUE THEN
     bRunCmd := TRUE;
 END_IF;`}</pre>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">IF / THEN / ELSIF / ELSE / END_IF</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">IF / THEN / ELSIF / ELSE / END_IF</h2>
 
       <pre>{`(* Conditional logic *)
 IF rVoltage > 14.4 THEN
@@ -72,7 +71,7 @@ END_IF;`}</pre>
         Every statement terminator in ST is a semicolon. <code>END_IF;</code> not <code>END_IF</code>. Same for <code>END_FOR;</code>, <code>END_CASE;</code>, <code>END_WHILE;</code>. Missing a semicolon is a compile error on all platforms. ACSELERATOR RTAC will tell you exactly which line.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">CASE / OF / END_CASE</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">CASE / OF / END_CASE</h2>
       <p>
         CASE is the ST equivalent of a switch statement. Use it for state machines and enumeration-based logic. It is far more readable than a chain of ELSIF statements when you have more than three conditions.
       </p>
@@ -110,7 +109,7 @@ END_CASE;`}</pre>
 
       <FunFact index={6} />
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">FOR Loop</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">FOR Loop</h2>
 
       <pre>{`(* FOR loop — bounded iteration *)
 VAR
@@ -130,7 +129,7 @@ FOR i := 0 TO 8 BY 2 DO
     arData[i] := 0.0;  (* Zero even indices *)
 END_FOR;`}</pre>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">WHILE and REPEAT Loops</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">WHILE and REPEAT Loops</h2>
 
       <pre>{`(* WHILE — checks condition before each iteration *)
 WHILE nCount < 10 DO
@@ -147,7 +146,7 @@ END_REPEAT;`}</pre>
         IEC 61131-3 does not prevent infinite loops. A <code>WHILE TRUE DO</code> with no exit condition will spin forever, consuming your entire scan time and triggering a watchdog trip on the RTAC. The RTAC will restart the IEC 61131-3 runtime. Every PLC programmer learns this the hard way once. Now you know beforehand.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Calling Function Blocks in ST</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Calling Function Blocks in ST</h2>
       <p>
         When you use a Function Block like a timer or counter, you must first declare an instance of it as a variable, then call it each scan with its inputs. This is the central pattern of ST programming on any IEC 61131-3 platform.
       </p>
@@ -179,7 +178,7 @@ nCurrentCount := cCounter.CV; (* Current value *)`}</pre>
 
       <GifCard gifKey="nerd" caption="When ST finally compiles on the first try" side="right" />
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Operators and Expressions</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Operators and Expressions</h2>
 
       <pre>{`(* Arithmetic *)
 rResult := (rA + rB) * rC / 2.0;
@@ -204,18 +203,16 @@ wResult := NOT wA;      (* Bitwise NOT *)
 wResult := SHL(wA, 2);  (* Shift left 2 bits *)
 wResult := SHR(wA, 2);  (* Shift right 2 bits *)`}</pre>
 
-      <div className="bg-purple-50 border border-purple-200 rounded-2xl p-5 my-6">
-        <p className="text-sm italic text-purple-800">"{ANALOGIES.st.text}"</p>
-        <p className="text-xs text-purple-500 mt-2">— {ANALOGIES.st.author}</p>
+      <div className="rounded-2xl p-5 my-6" style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.25)' }}>
+        <p className="text-sm italic text-slate-300">"{ANALOGIES.st.text}"</p>
+        <p className="text-xs text-blue-400 mt-2">— {ANALOGIES.st.author}</p>
       </div>
 
       <Callout type="pro" title="Use Comments Aggressively">
         ST code without comments is maintenance debt. Power system code runs for 20+ years. The engineer who reads your code in 2044 may not have access to any context about why that trip threshold is 95% instead of 100%. Comment every non-obvious decision. Your future self is also in this audience.
       </Callout>
 
-      {QUIZZES.st && QUIZZES.st.length > 0 && (
-        <Quiz chapterId="st" questions={QUIZZES.st} level={1} />
-      )}
+      <QuizLevels chapterId="st" />
 
       <ChapterExercise exercise={IEC_CHAPTER_EXERCISES.st} />
     </ChapterLayout>

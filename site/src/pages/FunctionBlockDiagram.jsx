@@ -3,10 +3,9 @@ import ChapterLayout from '../components/ChapterLayout'
 import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
-import Quiz from '../components/Quiz'
+import QuizLevels from '../components/QuizLevels'
 import ChapterExercise from '../components/ChapterExercise'
 import { ANALOGIES } from '../data/chapters'
-import { QUIZZES } from '../data/quizzes'
 import { IEC_CHAPTER_EXERCISES } from '../data/chapterExercises'
 
 export default function FunctionBlockDiagram() {
@@ -29,7 +28,7 @@ export default function FunctionBlockDiagram() {
         In FBD, the execution order of blocks is determined by data dependencies — a block executes when all its input wires have been driven by upstream blocks. This is different from ladder (top-to-bottom scan) and ST (statement sequence). Modern FBD compilers resolve execution order automatically from the wiring topology.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Basic Blocks</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Basic Blocks</h2>
 
       <pre>{`(* FBD text representation — actual FBD is graphical *)
 
@@ -56,7 +55,7 @@ ADD Block:
               ADD ──── Sum (REAL + REAL)
   Value2 ─────┘`}</pre>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Function Block Instances in FBD</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Function Block Instances in FBD</h2>
       <p>
         Just as in ST, using a Function Block in FBD requires declaring an instance. In the graphical FBD editor, you place the FB instance as a block on the diagram, then wire its input and output pins.
       </p>
@@ -84,7 +83,7 @@ After 5s: TON.Q ──── bDelayedStart
 
       <FunFact index={9} />
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">PID Control in FBD</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">PID Control in FBD</h2>
       <p>
         FBD is the preferred language for PID control loops. The CTRL_PID function block (standard in most IEC 61131-3 implementations including CODESYS) takes a setpoint and process variable as inputs and outputs a control signal. In FBD, the wiring makes the feedback loop visually obvious.
       </p>
@@ -105,7 +104,7 @@ rProcessVar ──────  CTRL_PID.X
         If two blocks have no data dependency between them, the compiler must pick an execution order. Different compilers may choose differently, and reordering can change behavior in edge cases involving shared state. If execution order matters, ensure all blocks are connected in a proper data-flow chain. In CODESYS you can also set explicit execution order numbers.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Combining Languages in One Project</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Combining Languages in One Project</h2>
       <p>
         IEC 61131-3 allows different POUs in the same project to be written in different languages. A common pattern on RTAC projects: write the main scan logic in ST (complex conditionals, state machines), implement signal conditioning in FBD (clearer for analog math), and use LD for simple permissive interlocks that electricians need to read.
       </p>
@@ -115,18 +114,16 @@ rProcessVar ──────  CTRL_PID.X
 
       <GifCard gifKey="math" caption="FBD designer connecting a PID loop at 11pm" side="right" />
 
-      <div className="bg-purple-50 border border-purple-200 rounded-2xl p-5 my-6">
-        <p className="text-sm italic text-purple-800">"{ANALOGIES.fbd.text}"</p>
-        <p className="text-xs text-purple-500 mt-2">— {ANALOGIES.fbd.author}</p>
+      <div className="rounded-2xl p-5 my-6" style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.25)' }}>
+        <p className="text-sm italic text-slate-300">"{ANALOGIES.fbd.text}"</p>
+        <p className="text-xs text-blue-400 mt-2">— {ANALOGIES.fbd.author}</p>
       </div>
 
       <Callout type="pro" title="FBD for Documentation">
         A well-drawn FBD diagram is nearly self-documenting. When presenting control logic to a customer, a process engineer, or a regulator who doesn't write code, an FBD diagram communicates the signal flow without requiring any programming background. Print it, paste it in the design document, and watch the questions become more specific.
       </Callout>
 
-      {QUIZZES.fbd && QUIZZES.fbd.length > 0 && (
-        <Quiz chapterId="fbd" questions={QUIZZES.fbd} level={1} />
-      )}
+      <QuizLevels chapterId="fbd" />
 
       <ChapterExercise exercise={IEC_CHAPTER_EXERCISES.fbd} />
     </ChapterLayout>

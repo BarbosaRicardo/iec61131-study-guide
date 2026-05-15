@@ -3,10 +3,9 @@ import ChapterLayout from '../components/ChapterLayout'
 import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
-import Quiz from '../components/Quiz'
+import QuizLevels from '../components/QuizLevels'
 import ChapterExercise from '../components/ChapterExercise'
 import { ANALOGIES } from '../data/chapters'
-import { QUIZZES } from '../data/quizzes'
 import { IEC_CHAPTER_EXERCISES } from '../data/chapterExercises'
 
 export default function Troubleshoot() {
@@ -29,7 +28,7 @@ export default function Troubleshoot() {
         On a live RTAC, your IEC 61131-3 program executes every scan whether you are connected or not. ACSELERATOR RTAC's online monitoring shows you the current state of variables — updated each scan. It does not pause execution. You observe, not freeze. Design your debugging strategy around this fact.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Online Monitoring (Watch Window)</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Online Monitoring (Watch Window)</h2>
       <p>
         When connected to a live RTAC from ACSELERATOR, you can open a watch window and observe the current value of any variable in your project. The values update each scan. You can also force values to a specific value for testing — this overrides the program logic temporarily.
       </p>
@@ -38,7 +37,7 @@ export default function Troubleshoot() {
         Forcing a variable in a live production system bypasses the control logic that drives it. If you force a BOOL to TRUE and then disconnect, the forced value stays until the program writes to it again (or until you clear forces). In a production substation, a forgotten force can leave a trip output in an unexpected state. Always clear all forces before disconnecting from a production device.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Scan Time Overruns</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Scan Time Overruns</h2>
       <p>
         A scan time overrun occurs when your IEC 61131-3 program takes longer to execute than its configured scan period. ACSELERATOR RTAC logs these events. Persistent overruns lead to watchdog trips.
       </p>
@@ -71,7 +70,7 @@ export default function Troubleshoot() {
 
       <FunFact index={3} />
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Watchdog Trips</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Watchdog Trips</h2>
       <p>
         When the IEC 61131-3 runtime detects a persistent task overrun, it trips the watchdog. This restarts the IEC 61131-3 runtime — not the entire RTAC, but the IEC 61131-3 execution engine. All non-RETAIN variables reset to their initial values. RETAIN variables survive. Protocol stacks (DNP3, IEC 61850) continue running.
       </p>
@@ -90,7 +89,7 @@ INITIAL STATE. Not its pre-fault state. If your process
 cannot tolerate a restart from initial state, your RETAIN
 variable strategy needs rethinking. *)`}</pre>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">No Recursion — Compiler Enforcement</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">No Recursion — Compiler Enforcement</h2>
       <p>
         IEC 61131-3 prohibits recursion at the language level. The ACSELERATOR RTAC compiler performs a call graph analysis and will reject any project where a FUNCTION or FUNCTION_BLOCK directly or indirectly calls itself. This error manifests at compile time, not runtime.
       </p>
@@ -118,7 +117,7 @@ END_FOR;
 Factorial := result;
 END_FUNCTION`}</pre>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">CODESYS Breakpoints (Simulation)</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">CODESYS Breakpoints (Simulation)</h2>
       <p>
         In CODESYS with the built-in soft PLC simulator, you can set breakpoints that pause execution at a specific line of ST code. This is not available on a production RTAC — live systems cannot pause. But in development and testing, CODESYS breakpoints let you step through logic, inspect variable state, and validate behavior before deploying to hardware.
       </p>
@@ -127,7 +126,7 @@ END_FUNCTION`}</pre>
         Build your complete IEC 61131-3 logic in CODESYS, simulate it fully including edge cases and fault conditions, verify all state transitions, and only then adapt it for ACSELERATOR RTAC. The adaptation is mostly FB library substitution (standard IEC timers → SEL timer FBs, etc.). The logic validation work is the same in both environments — but CODESYS gives you breakpoints.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">RTAC Diagnostic Tags</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">RTAC Diagnostic Tags</h2>
       <p>
         ACSELERATOR RTAC exposes internal diagnostic information as "tags" — values accessible through the data model. Useful diagnostic tags include: task execution time, watchdog trip counter, last fault time, DNP3 communication quality, IEC 61850 connection status, and hardware I/O health.
       </p>
@@ -137,9 +136,9 @@ END_FUNCTION`}</pre>
 
       <GifCard gifKey="error" caption="When you realize the watchdog trip was a missing RETAIN" side="right" />
 
-      <div className="bg-purple-50 border border-purple-200 rounded-2xl p-5 my-6">
-        <p className="text-sm italic text-purple-800">"{ANALOGIES.troubleshoot.text}"</p>
-        <p className="text-xs text-purple-500 mt-2">— {ANALOGIES.troubleshoot.author}</p>
+      <div className="rounded-2xl p-5 my-6" style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.25)' }}>
+        <p className="text-sm italic text-slate-300">"{ANALOGIES.troubleshoot.text}"</p>
+        <p className="text-xs text-blue-400 mt-2">— {ANALOGIES.troubleshoot.author}</p>
       </div>
 
       <Callout type="field" title="Common RTAC IEC 61131-3 Bugs">
@@ -153,9 +152,7 @@ END_FUNCTION`}</pre>
         </ol>
       </Callout>
 
-      {QUIZZES.troubleshoot && QUIZZES.troubleshoot.length > 0 && (
-        <Quiz chapterId="troubleshoot" questions={QUIZZES.troubleshoot} level={1} />
-      )}
+      <QuizLevels chapterId="troubleshoot" />
 
       <ChapterExercise exercise={IEC_CHAPTER_EXERCISES.troubleshoot} />
     </ChapterLayout>

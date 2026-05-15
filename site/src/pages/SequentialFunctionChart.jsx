@@ -3,10 +3,9 @@ import ChapterLayout from '../components/ChapterLayout'
 import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
-import Quiz from '../components/Quiz'
+import QuizLevels from '../components/QuizLevels'
 import ChapterExercise from '../components/ChapterExercise'
 import { ANALOGIES } from '../data/chapters'
-import { QUIZZES } from '../data/quizzes'
 import { IEC_CHAPTER_EXERCISES } from '../data/chapterExercises'
 
 export default function SequentialFunctionChart() {
@@ -30,7 +29,7 @@ export default function SequentialFunctionChart() {
         <strong>Transitions</strong> are the conditions that move execution from one step to the next. A transition is a BOOL expression. When it evaluates TRUE and its preceding step is active, execution advances.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">SFC Structure — Text Representation</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">SFC Structure — Text Representation</h2>
 
       <pre>{`(* Motor Startup Sequence — SFC concept *)
 
@@ -63,21 +62,21 @@ export default function SequentialFunctionChart() {
            │
   (back to Idle)`}</pre>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Action Qualifiers</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Action Qualifiers</h2>
       <p>
         Each action attached to a step has a qualifier that determines when and how the action executes.
       </p>
 
-      <div className="overflow-x-auto rounded-xl border border-slate-200 my-4">
+      <div className="overflow-x-auto rounded-xl my-4" style={{ border: "1px solid rgba(255,255,255,0.1)" }}>
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-navy-700 text-white">
+            <tr className="text-slate-300" style={{ background: 'rgba(37,99,235,0.2)' }}>
               <th className="px-4 py-3 text-left font-semibold">Qualifier</th>
               <th className="px-4 py-3 text-left font-semibold">Name</th>
               <th className="px-4 py-3 text-left font-semibold">Behavior</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-white/5">
             {[
               ['N', 'Non-stored', 'Active while step is active. Deactivates when step deactivates.'],
               ['S', 'Set (Stored)', 'Activates when step activates. Stays active until Reset.'],
@@ -88,10 +87,10 @@ export default function SequentialFunctionChart() {
               ['SD', 'Stored & Delayed', 'Like S but with a delay before activating.'],
               ['DS', 'Delayed & Stored', 'Like D but stays active after step exits.'],
             ].map(([q, name, desc], i) => (
-              <tr key={q} className={i % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
+              <tr key={q} className={i % 2 === 0 ? 'bg-white/5' : ''}>
                 <td className="px-4 py-2.5 font-mono font-bold text-morange-500">{q}</td>
-                <td className="px-4 py-2.5 font-medium text-slate-800">{name}</td>
-                <td className="px-4 py-2.5 text-slate-600">{desc}</td>
+                <td className="px-4 py-2.5 font-medium text-slate-200">{name}</td>
+                <td className="px-4 py-2.5 text-slate-400">{desc}</td>
               </tr>
             ))}
           </tbody>
@@ -104,7 +103,7 @@ export default function SequentialFunctionChart() {
 
       <FunFact index={7} />
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Parallel Sequences (AND Divergence)</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Parallel Sequences (AND Divergence)</h2>
       <p>
         When you need two sequences to run simultaneously, SFC supports parallel branching. A double horizontal line below a step/transition indicates simultaneous activation of all branches below it. A double horizontal line above a step indicates waiting for all parallel branches to complete before proceeding.
       </p>
@@ -126,7 +125,7 @@ export default function SequentialFunctionChart() {
   │ BothRunning    │
   └────────────────┘`}</pre>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Exclusive Selections (OR Divergence)</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Exclusive Selections (OR Divergence)</h2>
       <p>
         A single horizontal line with multiple branches is an OR divergence — exactly one branch activates based on which transition is TRUE first. This implements a decision point: the sequence goes one way or another based on conditions.
       </p>
@@ -135,16 +134,14 @@ export default function SequentialFunctionChart() {
         SFC support in ACSELERATOR RTAC varies by firmware version and configuration. For complex sequential logic, many RTAC engineers implement state machines in Structured Text using CASE statements rather than native SFC. The CASE approach has equivalent expressiveness and is universally supported. Check your RTAC firmware documentation before committing to a native SFC implementation.
       </Callout>
 
-      <div className="bg-purple-50 border border-purple-200 rounded-2xl p-5 my-6">
-        <p className="text-sm italic text-purple-800">"{ANALOGIES.sfc.text}"</p>
-        <p className="text-xs text-purple-500 mt-2">— {ANALOGIES.sfc.author}</p>
+      <div className="rounded-2xl p-5 my-6" style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.25)' }}>
+        <p className="text-sm italic text-slate-300">"{ANALOGIES.sfc.text}"</p>
+        <p className="text-xs text-blue-400 mt-2">— {ANALOGIES.sfc.author}</p>
       </div>
 
       <GifCard gifKey="thinking" caption="Tracing an SFC with a parallel branch and a stored action" side="right" />
 
-      {QUIZZES.sfc && QUIZZES.sfc.length > 0 && (
-        <Quiz chapterId="sfc" questions={QUIZZES.sfc} level={1} />
-      )}
+      <QuizLevels chapterId="sfc" />
 
       <ChapterExercise exercise={IEC_CHAPTER_EXERCISES.sfc} />
     </ChapterLayout>

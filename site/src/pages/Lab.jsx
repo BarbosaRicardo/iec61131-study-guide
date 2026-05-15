@@ -3,10 +3,9 @@ import ChapterLayout from '../components/ChapterLayout'
 import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
-import Quiz from '../components/Quiz'
+import QuizLevels from '../components/QuizLevels'
 import CodeLab from '../components/CodeLab'
 import { ANALOGIES } from '../data/chapters'
-import { QUIZZES } from '../data/quizzes'
 import { IEC_LAB } from '../data/labExercises'
 
 export default function Lab() {
@@ -44,7 +43,7 @@ export default function Lab() {
         </ul>
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Exercise 1: Motor Interlock in Ladder Diagram</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Exercise 1: Motor Interlock in Ladder Diagram</h2>
       <p>
         Start here. Build a motor start/stop interlock in ladder diagram. This is the canonical PLC exercise — every PLC engineer has built this.
       </p>
@@ -65,7 +64,7 @@ Logic:
 
 Build this in LD. Then verify behavior by simulation in CODESYS.`}</pre>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Exercise 2: Same Logic in Structured Text</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Exercise 2: Same Logic in Structured Text</h2>
       <p>
         Take the exact same motor interlock and implement it in ST using a CASE state machine. The behavior must be identical to the LD version.
       </p>
@@ -102,7 +101,7 @@ END_CASE;`}</pre>
 
       <FunFact index={1} />
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Exercise 3: Encapsulate as a FUNCTION_BLOCK</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Exercise 3: Encapsulate as a FUNCTION_BLOCK</h2>
       <p>
         Take your ST motor interlock and encapsulate it in a FUNCTION_BLOCK named <code>FB_MotorInterlock</code>. Then instantiate it three times in a PROGRAM to control three independent motors. Verify that each instance has independent state.
       </p>
@@ -141,12 +140,12 @@ END_PROGRAM`}</pre>
         Once you have the basic FB working, add a TON timer instance inside it for a start-failure detection: if the motor doesn't confirm running within 5 seconds of bMotorRun going TRUE, latch a fault. This teaches you timer FB instantiation inside an FB — a pattern you will use constantly on RTAC projects.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Exercise 4: FBD Implementation</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Exercise 4: FBD Implementation</h2>
       <p>
         In CODESYS, draw the motor interlock logic using Function Block Diagram. Use AND, OR, NOT blocks for the boolean logic. Use Set/Reset FBs for the latch. Compare the FBD graphical representation with your ST CASE implementation — notice that the parallel nature of FBD makes the combinational logic visible but makes state machine flow less obvious.
       </p>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Exercise 5: Analog Scaling FUNCTION</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Exercise 5: Analog Scaling FUNCTION</h2>
       <p>
         Write a FUNCTION named <code>FC_ScaleAnalog</code> that scales a raw analog value from one range to an engineering unit range. Use it in a PROGRAM to process three different analog inputs with different scale factors.
       </p>
@@ -163,16 +162,16 @@ Verify:
    ScaleAnalog(0, 0, 32767, -100, 100) = -100.0
 *)`}</pre>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Exercise 6: SFC Startup Sequence</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Exercise 6: SFC Startup Sequence</h2>
       <p>
         Implement a substation equipment startup sequence in SFC (or as a CASE state machine in ST if your platform doesn't support native SFC). The sequence: (1) verify all permissives, (2) close bus tie breaker, (3) wait 2 seconds, (4) energize bus, (5) verify bus voltage, (6) signal ready. Include a timeout at each step that goes to a fault state if the step doesn't complete in the allotted time.
       </p>
 
       <GifCard gifKey="done" caption="Commissioning complete, all tags green" side="right" />
 
-      <div className="bg-purple-50 border border-purple-200 rounded-2xl p-5 my-6">
-        <p className="text-sm italic text-purple-800">"{ANALOGIES.lab.text}"</p>
-        <p className="text-xs text-purple-500 mt-2">— {ANALOGIES.lab.author}</p>
+      <div className="rounded-2xl p-5 my-6" style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.25)' }}>
+        <p className="text-sm italic text-slate-300">"{ANALOGIES.lab.text}"</p>
+        <p className="text-xs text-blue-400 mt-2">— {ANALOGIES.lab.author}</p>
       </div>
 
       <Callout type="field" title="The RTAC Transfer Checklist">
@@ -188,7 +187,7 @@ Verify:
         </ol>
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Where to Go Next</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Where to Go Next</h2>
       <p>
         After completing the exercises in this guide:
       </p>
@@ -199,9 +198,7 @@ Verify:
         <li>Take the SEL University RTAC configuration course — it covers the ACSELERATOR-specific aspects that go beyond the IEC standard itself.</li>
       </ul>
 
-      {QUIZZES.lab && QUIZZES.lab.length > 0 && (
-        <Quiz chapterId="lab" questions={QUIZZES.lab} level={1} />
-      )}
+      <QuizLevels chapterId="lab" />
     </ChapterLayout>
   )
 }

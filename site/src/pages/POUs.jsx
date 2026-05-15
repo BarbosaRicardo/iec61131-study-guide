@@ -3,10 +3,9 @@ import ChapterLayout from '../components/ChapterLayout'
 import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
-import Quiz from '../components/Quiz'
+import QuizLevels from '../components/QuizLevels'
 import ChapterExercise from '../components/ChapterExercise'
 import { ANALOGIES } from '../data/chapters'
-import { QUIZZES } from '../data/quizzes'
 import { IEC_CHAPTER_EXERCISES } from '../data/chapterExercises'
 
 export default function POUs() {
@@ -25,7 +24,7 @@ export default function POUs() {
       <div className="overflow-x-auto rounded-xl border border-slate-200 my-6">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-navy-700 text-white">
+            <tr className="text-slate-300" style={{ background: 'rgba(37,99,235,0.2)' }}>
               <th className="px-4 py-3 text-left font-semibold">POU Type</th>
               <th className="px-4 py-3 text-left font-semibold">Has State?</th>
               <th className="px-4 py-3 text-left font-semibold">Return Value?</th>
@@ -33,7 +32,7 @@ export default function POUs() {
               <th className="px-4 py-3 text-left font-semibold">Analogy</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-white/5">
             <tr className="bg-white">
               <td className="px-4 py-3 font-mono font-bold text-mcyan-500">PROGRAM</td>
               <td className="px-4 py-3">Yes</td>
@@ -59,7 +58,7 @@ export default function POUs() {
         </table>
       </div>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">PROGRAM</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">PROGRAM</h2>
       <p>
         A PROGRAM is the top-level execution unit. It has no return value and is not instantiated — there is exactly one instance of each PROGRAM, and the runtime calls it on each scan cycle. A PROGRAM can declare local variables (VAR section), access global variables (VAR_EXTERNAL), and call FUNCTIONs and FUNCTION_BLOCKs.
       </p>
@@ -88,7 +87,7 @@ tScanTimer(IN := TRUE, PT := T#1s);
 bSystemReady := CheckPermissives(rBusVoltage, gBreaker_Status);
 END_PROGRAM`}</pre>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">FUNCTION</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">FUNCTION</h2>
       <p>
         A FUNCTION is stateless. Given the same inputs, it always returns the same output — there is no internal memory between calls. This makes FUNCTIONs safe to call multiple times per scan with different arguments. They are ideal for calculations, conversions, scaling, and CRC computations.
       </p>
@@ -121,7 +120,7 @@ rSpan       := rEngMax - rEngMin;
 ScaleAnalog := rEngMin + ((rRaw - rRawMin) / rRawSpan) * rSpan;
 END_FUNCTION`}</pre>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">FUNCTION_BLOCK</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">FUNCTION_BLOCK</h2>
       <p>
         A FUNCTION_BLOCK is IEC 61131-3's answer to object-oriented programming. It has internal state that persists between calls. To use a FUNCTION_BLOCK, you declare an instance of it as a variable — just like declaring a variable of any other type. Each instance has its own independent copy of the FB's internal state.
       </p>
@@ -213,7 +212,7 @@ bMotor2_Running := Motor2.bMotorRun;`}</pre>
         IEC 61131-3 explicitly forbids recursive calls — a FUNCTION or FUNCTION_BLOCK cannot call itself, directly or indirectly. This ensures deterministic stack usage, which is required for real-time systems. If you think you need recursion, redesign using iteration. The compiler will catch recursive calls and reject them.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">OOP Extensions (IEC 61131-3 3rd Edition)</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">OOP Extensions (IEC 61131-3 3rd Edition)</h2>
       <p>
         The third edition added methods, properties, and inheritance to FUNCTION_BLOCKs. A METHOD is like a class method — it runs within the context of an FB instance and has access to its state. A PROPERTY is a getter/setter pair. EXTENDS allows one FB to inherit from another.
       </p>
@@ -221,14 +220,12 @@ bMotor2_Running := Motor2.bMotorRun;`}</pre>
         CODESYS supports these fully. ACSELERATOR RTAC support depends on firmware version — check your specific RTAC documentation before designing around these features.
       </p>
 
-      <div className="bg-purple-50 border border-purple-200 rounded-2xl p-5 my-6">
-        <p className="text-sm italic text-purple-800">"{ANALOGIES.pou.text}"</p>
-        <p className="text-xs text-purple-500 mt-2">— {ANALOGIES.pou.author}</p>
+      <div className="rounded-2xl p-5 my-6" style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.25)' }}>
+        <p className="text-sm italic text-slate-300">"{ANALOGIES.pou.text}"</p>
+        <p className="text-xs text-blue-400 mt-2">— {ANALOGIES.pou.author}</p>
       </div>
 
-      {QUIZZES.pou && QUIZZES.pou.length > 0 && (
-        <Quiz chapterId="pou" questions={QUIZZES.pou} level={1} />
-      )}
+      <QuizLevels chapterId="pou" />
 
       <ChapterExercise exercise={IEC_CHAPTER_EXERCISES.pou} />
     </ChapterLayout>

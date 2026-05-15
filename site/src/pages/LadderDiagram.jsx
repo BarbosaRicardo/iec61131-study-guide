@@ -3,10 +3,9 @@ import ChapterLayout from '../components/ChapterLayout'
 import Callout from '../components/Callout'
 import FunFact from '../components/FunFact'
 import GifCard from '../components/GifCard'
-import Quiz from '../components/Quiz'
+import QuizLevels from '../components/QuizLevels'
 import ChapterExercise from '../components/ChapterExercise'
 import { ANALOGIES } from '../data/chapters'
-import { QUIZZES } from '../data/quizzes'
 import { IEC_CHAPTER_EXERCISES } from '../data/chapterExercises'
 
 export default function LadderDiagram() {
@@ -29,18 +28,18 @@ export default function LadderDiagram() {
         The left vertical rail represents logical TRUE (power available). The right vertical rail is the output side. A rung "passes power" when all conditions in its horizontal path evaluate to TRUE. The coil on the right activates when the rung is TRUE. This maps directly to a relay circuit where power flows through closed contacts to energize a coil.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Basic Elements</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Basic Elements</h2>
 
-      <div className="overflow-x-auto rounded-xl border border-slate-200 my-4">
+      <div className="overflow-x-auto rounded-xl my-4" style={{ border: "1px solid rgba(255,255,255,0.1)" }}>
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-navy-700 text-white">
+            <tr className="text-slate-300" style={{ background: 'rgba(37,99,235,0.2)' }}>
               <th className="px-4 py-3 text-left font-semibold">Symbol</th>
               <th className="px-4 py-3 text-left font-semibold">Name</th>
               <th className="px-4 py-3 text-left font-semibold">Behavior</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-white/5">
             {[
               ['—| |—', 'Normally Open (NO) Contact', 'Passes power when variable is TRUE'],
               ['—|/|—', 'Normally Closed (NC) Contact', 'Passes power when variable is FALSE'],
@@ -52,17 +51,17 @@ export default function LadderDiagram() {
               ['—[TOF]—', 'Timer Off-Delay', 'Delays turning output OFF after input is FALSE'],
               ['—[CTU]—', 'Count Up Counter', 'Increments count on each rising edge'],
             ].map(([sym, name, desc], i) => (
-              <tr key={name} className={i % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
+              <tr key={name} className={i % 2 === 0 ? 'bg-white/5' : ''}>
                 <td className="px-4 py-2.5 font-mono font-bold text-mcyan-500 whitespace-nowrap">{sym}</td>
-                <td className="px-4 py-2.5 font-medium text-slate-800">{name}</td>
-                <td className="px-4 py-2.5 text-slate-600">{desc}</td>
+                <td className="px-4 py-2.5 font-medium text-slate-200">{name}</td>
+                <td className="px-4 py-2.5 text-slate-400">{desc}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Simple Rung: Motor Start/Stop</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Simple Rung: Motor Start/Stop</h2>
       <p>
         The classic ladder logic example is a motor start/stop circuit. This is the "Hello World" of PLC programming.
       </p>
@@ -87,7 +86,7 @@ Rung 3: PERMISSIVE CHECK
 
       <FunFact index={3} />
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Standard Timers: TON, TOF, TP</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Standard Timers: TON, TOF, TP</h2>
       <p>
         IEC 61131-3 defines three standard timer Function Blocks. These are available in all languages including LD, where they appear as rectangular blocks on a rung.
       </p>
@@ -122,7 +121,7 @@ TP — Pulse Timer
         In LD (and all IEC 61131-3 languages), timers are Function Block instances. You must declare a variable of type TON (or TOF or TP) in your VAR section before using it. Two separate timers require two separate variable declarations. Using the same timer instance for two different purposes creates very confusing timing behavior that is surprisingly difficult to debug.
       </Callout>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Counters: CTU, CTD, CTUD</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Counters: CTU, CTD, CTUD</h2>
 
       <pre>{`CTU — Count Up
   Inputs:  CU (BOOL — count up pulse), R (BOOL — reset), PV (INT — preset)
@@ -137,7 +136,7 @@ CTD — Count Down
 CTUD — Count Up/Down (combined)
   Has both CU and CD inputs plus QU and QD outputs.`}</pre>
 
-      <h2 className="text-xl font-bold text-navy-700 mt-8 mb-3">Set and Reset Coils</h2>
+      <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Set and Reset Coils</h2>
       <p>
         Set (S) and Reset (R) coils implement SR flip-flop behavior in ladder. Unlike a normal output coil (which is driven by the rung state every scan), a Set coil only writes TRUE when its rung is TRUE — and the value stays TRUE even after the rung goes FALSE. A Reset coil does the opposite.
       </p>
@@ -148,18 +147,16 @@ CTUD — Count Up/Down (combined)
 
       <GifCard gifKey="cables" caption="RS-485 wiring vs. ladder wiring — same energy" side="right" />
 
-      <div className="bg-purple-50 border border-purple-200 rounded-2xl p-5 my-6">
-        <p className="text-sm italic text-purple-800">"{ANALOGIES.ld.text}"</p>
-        <p className="text-xs text-purple-500 mt-2">— {ANALOGIES.ld.author}</p>
+      <div className="rounded-2xl p-5 my-6" style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.25)' }}>
+        <p className="text-sm italic text-slate-300">"{ANALOGIES.ld.text}"</p>
+        <p className="text-xs text-blue-400 mt-2">— {ANALOGIES.ld.author}</p>
       </div>
 
       <Callout type="pro" title="When to Use LD vs ST">
         Use LD when: (1) the audience includes electricians who don't write code, (2) the logic maps naturally to relay-style interlocks, or (3) you are debugging with field personnel who need to read it on a laptop. Use ST when: logic is complex, involves math, requires loops or CASE, or when you need maintainable long-term code. Most RTAC projects end up primarily ST.
       </Callout>
 
-      {QUIZZES.ld && QUIZZES.ld.length > 0 && (
-        <Quiz chapterId="ld" questions={QUIZZES.ld} level={1} />
-      )}
+      <QuizLevels chapterId="ld" />
 
       <ChapterExercise exercise={IEC_CHAPTER_EXERCISES.ld} />
     </ChapterLayout>
