@@ -33,21 +33,21 @@ export default function POUs() {
             </tr>
           </thead>
           <tbody className="divide-y divide-white/5">
-            <tr className="bg-white">
+            <tr className="bg-white/5">
               <td className="px-4 py-3 font-mono font-bold text-mcyan-500">PROGRAM</td>
               <td className="px-4 py-3">Yes</td>
               <td className="px-4 py-3">No</td>
               <td className="px-4 py-3">No (one global instance)</td>
               <td className="px-4 py-3 text-slate-500">main() in C</td>
             </tr>
-            <tr className="bg-slate-50">
+            <tr className="bg-white/4">
               <td className="px-4 py-3 font-mono font-bold text-mgreen-500">FUNCTION</td>
               <td className="px-4 py-3">No (stateless)</td>
               <td className="px-4 py-3">Yes</td>
               <td className="px-4 py-3">No (called directly)</td>
               <td className="px-4 py-3 text-slate-500">Pure function</td>
             </tr>
-            <tr className="bg-white">
+            <tr className="bg-white/5">
               <td className="px-4 py-3 font-mono font-bold text-morange-500">FUNCTION_BLOCK</td>
               <td className="px-4 py-3">Yes (per instance)</td>
               <td className="px-4 py-3">No (outputs via VAR_OUTPUT)</td>

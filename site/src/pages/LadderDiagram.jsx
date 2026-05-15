@@ -51,7 +51,7 @@ export default function LadderDiagram() {
               ['—[TOF]—', 'Timer Off-Delay', 'Delays turning output OFF after input is FALSE'],
               ['—[CTU]—', 'Count Up Counter', 'Increments count on each rising edge'],
             ].map(([sym, name, desc], i) => (
-              <tr key={name} className={i % 2 === 0 ? 'bg-white/5' : ''}>
+              <tr key={name} className={i % 2 === 0 ? 'bg-white/5/5' : ''}>
                 <td className="px-4 py-2.5 font-mono font-bold text-mcyan-500 whitespace-nowrap">{sym}</td>
                 <td className="px-4 py-2.5 font-medium text-slate-200">{name}</td>
                 <td className="px-4 py-2.5 text-slate-400">{desc}</td>

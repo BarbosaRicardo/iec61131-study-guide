@@ -87,7 +87,7 @@ export default function SequentialFunctionChart() {
               ['SD', 'Stored & Delayed', 'Like S but with a delay before activating.'],
               ['DS', 'Delayed & Stored', 'Like D but stays active after step exits.'],
             ].map(([q, name, desc], i) => (
-              <tr key={q} className={i % 2 === 0 ? 'bg-white/5' : ''}>
+              <tr key={q} className={i % 2 === 0 ? 'bg-white/5/5' : ''}>
                 <td className="px-4 py-2.5 font-mono font-bold text-morange-500">{q}</td>
                 <td className="px-4 py-2.5 font-medium text-slate-200">{name}</td>
                 <td className="px-4 py-2.5 text-slate-400">{desc}</td>

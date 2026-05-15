@@ -48,10 +48,10 @@ export default function DataTypes() {
               ['DATE', '32 bits', 'Calendar date. Literal: D#2026-05-09'],
               ['STRING', 'variable', 'Fixed-length. Default STRING[80]. 1 byte/char.'],
             ].map(([type, size, notes], i) => (
-              <tr key={type} className={i % 2 === 0 ? 'bg-white/5' : ''}>
+              <tr key={type} className={i % 2 === 0 ? 'bg-white/5/5' : ''}>
                 <td className="px-4 py-2.5 font-mono font-bold text-morange-500">{type}</td>
                 <td className="px-4 py-2.5 text-slate-500 font-mono text-xs">{size}</td>
-                <td className="px-4 py-2.5 text-slate-700">{notes}</td>
+                <td className="px-4 py-2.5 text-slate-300">{notes}</td>
               </tr>
             ))}
           </tbody>
@@ -111,9 +111,9 @@ END_VAR`}</pre>
               ['VAR RETAIN', 'Survives power cycle (NVM)', 'Same as VAR'],
               ['VAR CONSTANT', 'Read-only within POU', 'Never writable'],
             ].map(([sec, scope, write], i) => (
-              <tr key={sec} className={i % 2 === 0 ? 'bg-white/5' : ''}>
+              <tr key={sec} className={i % 2 === 0 ? 'bg-white/5/5' : ''}>
                 <td className="px-4 py-2.5 font-mono font-bold text-mcyan-500">{sec}</td>
-                <td className="px-4 py-2.5 text-slate-700">{scope}</td>
+                <td className="px-4 py-2.5 text-slate-300">{scope}</td>
                 <td className="px-4 py-2.5 text-slate-500 text-xs">{write}</td>
               </tr>
             ))}

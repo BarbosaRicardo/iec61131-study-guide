@@ -50,9 +50,9 @@ export default function RTACSpecific() {
               ['1 s', 'Logging, diagnostic updates, non-critical housekeeping', 'No time pressure at all — ideal for complex setup logic'],
               ['Free-running', 'Runs as fast as possible, no period guarantee', 'Avoid in production — unpredictable timing'],
             ].map(([period, use, caution], i) => (
-              <tr key={period} className={i % 2 === 0 ? 'bg-white/5' : ''}>
+              <tr key={period} className={i % 2 === 0 ? 'bg-white/5/5' : ''}>
                 <td className="px-4 py-2.5 font-mono font-bold text-mcyan-500 whitespace-nowrap">{period}</td>
-                <td className="px-4 py-2.5 text-slate-700">{use}</td>
+                <td className="px-4 py-2.5 text-slate-300">{use}</td>
                 <td className="px-4 py-2.5 text-slate-500 text-xs">{caution}</td>
               </tr>
             ))}
@@ -113,8 +113,8 @@ END_IF;`}</pre>
               ['I/O', 'ReadAnalogInput, WriteDigitalOut', 'Direct hardware I/O on RTAC I/O cards'],
               ['Diagnostics', 'GetScanTime, GetTaskLoad', 'Monitor task execution performance'],
             ].map(([cat, ex, purpose], i) => (
-              <tr key={cat} className={i % 2 === 0 ? 'bg-white/5' : ''}>
-                <td className="px-4 py-2.5 font-medium text-navy-700">{cat}</td>
+              <tr key={cat} className={i % 2 === 0 ? 'bg-white/5/5' : ''}>
+                <td className="px-4 py-2.5 font-medium text-slate-100">{cat}</td>
                 <td className="px-4 py-2.5 font-mono text-xs text-morange-500">{ex}</td>
                 <td className="px-4 py-2.5 text-slate-400">{purpose}</td>
               </tr>

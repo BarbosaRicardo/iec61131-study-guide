@@ -191,7 +191,7 @@ Verify:
       <p>
         After completing the exercises in this guide:
       </p>
-      <ul className="list-disc list-inside space-y-2 text-slate-700">
+      <ul className="list-disc list-inside space-y-2 text-slate-300">
         <li>Download the SEL RTAC instruction manual for your specific firmware version from selinc.com and read the IEC 61131-3 chapter completely.</li>
         <li>Work through the SEL application guide for IEC 61850 GOOSE publishing — it walks through a complete RTAC configuration with IEC 61131-3 integration.</li>
         <li>Build a complete protection logic application: overcurrent trip in ST, breaker failure logic in LD, data quality check in FBD.</li>
