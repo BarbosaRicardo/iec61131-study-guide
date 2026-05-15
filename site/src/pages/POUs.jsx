@@ -21,7 +21,7 @@ export default function POUs() {
         Program Organization Units (POUs) are the building blocks of IEC 61131-3 software. There are exactly three types: PROGRAM, FUNCTION, and FUNCTION_BLOCK. Understanding the difference between them — especially the difference between FUNCTION and FUNCTION_BLOCK — is foundational to writing correct, maintainable IEC 61131-3 code.
       </p>
 
-      <div className="overflow-x-auto rounded-xl border border-slate-200 my-6">
+      <div className="overflow-x-auto rounded-xl border border-white/8 my-6">
         <table className="w-full text-sm">
           <thead>
             <tr className="text-slate-300" style={{ background: 'rgba(37,99,235,0.2)' }}>
