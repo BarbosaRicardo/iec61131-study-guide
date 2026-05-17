@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { BookOpen, Zap, Award, Clock, ArrowRight, Code2, Cpu, Settings, LayoutGrid } from 'lucide-react'
@@ -14,8 +14,16 @@ const STATS = [
   { icon: Award,       label: 'Cert Ready',  sub: 'ISA CAP & CCST' },
 ]
 
+const HERO_OPTIONS = [
+  { id: '3oEjHWPTo7c0ajPwty',  caption: `Five languages, one standard. IEC 61131-3 contains multitudes.`,  tooltip: `IEC 61131-3 defines five PLC programming languages: Ladder (for electricians), FBD (for controls engineers), ST (for software developers), IL (for masochists), and SFC (for process engineers). All standardized. All running on the same hardware.` },
+  { id: 'LmNwrBhejkK9EFP504',  caption: `Writing Structured Text after years of Ladder Diagram.`,          tooltip: `Structured Text looks like Pascal. Ladder Diagram looks like a relay circuit schematic. Both compile to the same machine code on the same PLC. IEC 61131-3 is why an electrical engineer and a software developer can program the same controller without either one being wrong.` },
+  { id: 'xT0xeJpnrWC4XWblEk',  caption: `Function blocks: write once, instantiate everywhere.`,            tooltip: `IEC 61131-3 function blocks are like objects with persistent state. Write a PID controller once, instantiate it 50 times — each instance has its own memory and tuning. This is why Siemens, Rockwell, and Beckhoff can all ship the same standard and have it work.` },
+  { id: '3oEjHFOscgNwdSRRDy',  caption: `Sequential Function Chart: state machines for process engineers.`, tooltip: `SFC is IEC 61131-3's sequential control language — steps, transitions, actions. It maps directly to P&ID process sequences. If your background is process engineering rather than electrical or software, SFC was the language the standard designed specifically for you.` },
+  { id: 'g9582DNuQppxC',        caption: `PLC scan cycle complete. No faults. Outputs written on time.`,    tooltip: `A PLC runs its scan cycle — read inputs, execute program, write outputs — typically every 1 to 20 milliseconds. IEC 61131-3 guarantees deterministic execution. No garbage collection, no OS scheduler preemption, no mystery pauses. Reliable cycles, every time.` },
+]
 export default function Home() {
   const { overallProgress, reset } = useProgress()
+  const [heroIdx] = useState(() => Math.floor(Math.random() * HERO_OPTIONS.length))
   const prog = overallProgress()
 
   const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.08 } } }
@@ -44,7 +52,7 @@ export default function Home() {
             </div>
           </div>
           <div className="flex-shrink-0">
-            <GifCard gifKey="courseHero" caption="Draw some rungs, connect some coils. Control a factory." side="right" tooltip="Ladder logic looks like an electrical schematic because it evolved from one. IEC 61131-3 then standardized 5 PLC programming languages — just in case rungs felt too intuitive and you wanted options." />
+            <GifCard gifId={HERO_OPTIONS[heroIdx].id} caption={HERO_OPTIONS[heroIdx].caption} tooltip={HERO_OPTIONS[heroIdx].tooltip} side="right" />
           </div>
         </div>
       </motion.div>
