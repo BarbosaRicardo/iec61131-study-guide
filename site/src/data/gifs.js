@@ -10,5 +10,6 @@ export const GIFS = {
   robot:     'tenor:4939428',             // robotics robot arm — automation achieved
   thinking:  'tenor:15044633',           // mind blown shocked done — state machine design
   tryAgain:  'tenor:2843452016211546109', // redo try again retry — scan cycle missed
+  courseHero: 'tenor:4939428',            // robotics robot arm — automation achieved
   welcome:   'tenor:22536990',           // CLI command prompt — writing Structured Text
 }

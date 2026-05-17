@@ -35,7 +35,7 @@ export default function Intro() {
         </ul>
       </Callout>
 
-      <GifCard gifKey="welcome" caption="First time opening ACSELERATOR RTAC" side="right" />
+      <GifCard gifKey="courseHero" caption="Draw some rungs, connect some coils. Control a factory." side="right" tooltip="Ladder logic looks like an electrical schematic because it evolved from one. IEC 61131-3 then standardized 5 PLC programming languages — just in case rungs felt too intuitive and you wanted options." />
 
       <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Why It Matters for RTAC Work</h2>
       <p>
