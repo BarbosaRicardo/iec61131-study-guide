@@ -177,7 +177,6 @@ cCounter(
 nCurrentCount := cCounter.CV; (* Current value *)`}</pre>
 
       <GifCard gifKey="nerd" caption="When ST finally compiles on the first try" side="right"
-        body="Structured Text is the only IEC 61131-3 language that maps directly to conventional programming. Variables have explicit types. Logic uses IF/ELSIF/ELSE, CASE, FOR, WHILE, and REPEAT. Functions and function blocks are callable with parenthesized argument lists. A controls engineer who knows ST can implement any algorithm a general-purpose programmer can — including recursive state machines, dynamic array processing, and string manipulation."
       />
 
       <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Operators and Expressions</h2>

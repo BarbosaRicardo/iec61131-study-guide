@@ -135,7 +135,6 @@ END_FUNCTION`}</pre>
       </p>
 
       <GifCard gifKey="error" caption="When you realize the watchdog trip was a missing RETAIN" side="right"
-        body="IEC 61131-3 variables marked RETAIN persist their values through a power cycle — stored in non-volatile memory. Variables without RETAIN reset to their initial values on restart. A watchdog trip caused by a missing RETAIN is a silent failure: the PLC restarts, the variable resets to its default, and the process behaves incorrectly until someone notices the wrong initial state. RETAIN declarations are the first thing to audit after an unexpected restart."
       />
 
       <div className="rounded-2xl p-5 my-6" style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.25)' }}>

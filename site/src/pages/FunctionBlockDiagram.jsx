@@ -113,7 +113,6 @@ rProcessVar ──────  CTRL_PID.X
       </p>
 
       <GifCard gifKey="math" caption="FBD designer connecting a PID loop at 11pm" side="right"
-        body="Function Block Diagram is the IEC 61131-3 language closest to a control loop schematic. Blocks represent function blocks (like PID, TON, SR); wires represent data flow. The execution order follows data dependency — blocks with no inputs from other blocks execute first; outputs flow downstream. A PID controlling a valve is literally drawn as a signal path from sensor input to valve output."
       />
 
       <div className="rounded-2xl p-5 my-6" style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.25)' }}>

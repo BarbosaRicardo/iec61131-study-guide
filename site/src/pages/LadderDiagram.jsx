@@ -146,7 +146,6 @@ CTUD — Count Up/Down (combined)
       </Callout>
 
       <GifCard gifKey="cables" caption="RS-485 wiring vs. ladder wiring — same energy" side="right"
-        body="Ladder Diagram reads like an electrical relay schematic because it evolved from one. Contacts (normally open, normally closed) correspond to relay contacts; coils correspond to relay coils; rungs carry current left to right when conditions are met. Electricians unfamiliar with software can read Ladder directly — which was the design intent when PLCs replaced physical relay panels in the 1970s."
       />
 
       <div className="rounded-2xl p-5 my-6" style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.25)' }}>

@@ -140,7 +140,6 @@ export default function SequentialFunctionChart() {
       </div>
 
       <GifCard gifKey="thinking" caption="Tracing an SFC with a parallel branch and a stored action" side="right"
-        body="SFC models a process as steps (actions to execute) and transitions (conditions to advance). Parallel branches execute multiple steps simultaneously — useful for processes with independent parallel sequences. A stored action runs during a step and retains its last state on step exit. Tracing an SFC with parallel branches requires following both paths simultaneously and understanding which transitions fire independently."
       />
 
       <QuizLevels chapterId="sfc" />
