@@ -134,8 +134,10 @@ END_FUNCTION`}</pre>
         Map these diagnostic tags to your SCADA or historian. When something goes wrong at 3am, the data you need to diagnose it is already recorded.
       </p>
 
-      <GifCard gifKey="error" caption="When you realize the watchdog trip was a missing RETAIN" side="right"
-      />
+      <div className="flex items-start gap-6 my-6">
+        <p className="flex-1 text-sm text-slate-400 leading-relaxed">When a watchdog trip occurs, the RTAC logs a system event with the scan time overage. Use the GetScanTime function block to monitor execution time in real time — log it to a tag database point if the program approaches its budget. Missing RETAIN declarations cause initialized-to-zero behavior after power cycles, which is the most common source of "the program was working and now it isn't" calls. Force table values are NOT preserved across downloads — a new download resets every forced value silently.</p>
+        <GifCard gifKey="error" caption="When you realize the watchdog trip was a missing RETAIN" />
+      </div>
 
       <div className="rounded-2xl p-5 my-6" style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.25)' }}>
         <p className="text-sm italic text-slate-300">"{ANALOGIES.troubleshoot.text}"</p>

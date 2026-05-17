@@ -145,8 +145,10 @@ CTUD — Count Up/Down (combined)
         In ladder diagram, if the same variable is driven by multiple output coils on different rungs, the last rung executed wins. Rungs are evaluated top to bottom, left to right. This is a known source of bugs when multiple rungs write the same output. The IEC standard permits this but warns against it. Use Set/Reset coils or refactor into a single controlling rung.
       </Callout>
 
-      <GifCard gifKey="cables" caption="RS-485 wiring vs. ladder wiring — same energy" side="right"
-      />
+      <div className="flex items-start gap-6 my-6">
+        <p className="flex-1 text-sm text-slate-400 leading-relaxed">Ladder logic scans left-to-right, top-to-bottom, every cycle. A coil written in rung 10 is immediately visible to a contact in rung 50 during the same scan. A contact in rung 10 reading a coil set by rung 50 sees the previous scan's value. This single-scan cross-rung visibility causes subtle timing bugs in complex ladder programs — draw your logic to minimize dependencies between rungs that are far apart.</p>
+        <GifCard gifKey="cables" caption="RS-485 wiring vs. ladder wiring — same energy" />
+      </div>
 
       <div className="rounded-2xl p-5 my-6" style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.25)' }}>
         <p className="text-sm italic text-slate-300">"{ANALOGIES.ld.text}"</p>

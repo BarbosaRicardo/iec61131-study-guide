@@ -112,8 +112,10 @@ rProcessVar ──────  CTRL_PID.X
         Each POU is its own language. A ST program can call an FBD function block. An LD rung can call an ST function. The languages interoperate freely at the POU boundary.
       </p>
 
-      <GifCard gifKey="math" caption="FBD designer connecting a PID loop at 11pm" side="right"
-      />
+      <div className="flex items-start gap-6 my-6">
+        <p className="flex-1 text-sm text-slate-400 leading-relaxed">FBD execution order is determined at compile time based on data flow — the compiler traces which block outputs feed which inputs and orders execution accordingly. This means execution order is NOT necessarily top-to-bottom or left-to-right. Two blocks with no data dependency can execute in either order. Feedback loops (an output feeding back as an input) require a memory block to break the cycle. If your FBD behaves unexpectedly, check what the compiled execution order actually is — it may not match what you drew.</p>
+        <GifCard gifKey="math" caption="FBD designer connecting a PID loop at 11pm" />
+      </div>
 
       <div className="rounded-2xl p-5 my-6" style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.25)' }}>
         <p className="text-sm italic text-slate-300">"{ANALOGIES.fbd.text}"</p>

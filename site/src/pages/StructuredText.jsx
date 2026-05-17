@@ -176,8 +176,10 @@ cCounter(
 );
 nCurrentCount := cCounter.CV; (* Current value *)`}</pre>
 
-      <GifCard gifKey="nerd" caption="When ST finally compiles on the first try" side="right"
-      />
+      <div className="flex items-start gap-6 my-6">
+        <p className="flex-1 text-sm text-slate-400 leading-relaxed">Structured Text compiles to native machine code on most PLCs, making it the fastest of the five IEC 61131-3 languages for computation-heavy tasks. Mathematical operations, string handling, and complex conditionals are all cleaner in ST than in ladder. The tradeoff is readability — an electrician who has never programmed can read a ladder diagram. They generally cannot read ST. In mixed-discipline environments, match the language to whoever has to maintain it.</p>
+        <GifCard gifKey="nerd" caption="When ST finally compiles on the first try" />
+      </div>
 
       <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Operators and Expressions</h2>
 

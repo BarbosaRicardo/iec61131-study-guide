@@ -139,8 +139,10 @@ export default function SequentialFunctionChart() {
         <p className="text-xs text-blue-400 mt-2">— {ANALOGIES.sfc.author}</p>
       </div>
 
-      <GifCard gifKey="thinking" caption="Tracing an SFC with a parallel branch and a stored action" side="right"
-      />
+      <div className="flex items-start gap-6 my-6">
+        <p className="flex-1 text-sm text-slate-400 leading-relaxed">SFC execution is stateful — the chart remembers which step it's in across scan cycles. Each active step executes its actions every scan while it's active. Transitions are evaluated every scan; when one goes TRUE, the current step deactivates and the next activates. Parallel branches use a double horizontal line to split into multiple simultaneously active steps; convergence uses another double line to wait for all branches before continuing. A stuck transition with no forcing mechanism means the SFC halts there permanently.</p>
+        <GifCard gifKey="thinking" caption="Tracing an SFC with a parallel branch and a stored action" />
+      </div>
 
       <QuizLevels chapterId="sfc" />
 

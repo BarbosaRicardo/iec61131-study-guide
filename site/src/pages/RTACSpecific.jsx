@@ -144,8 +144,10 @@ END_IF;
    when gBreaker_Trip transitions — no additional ST code needed.
    The mapping handles the protocol side. *)`}</pre>
 
-      <GifCard gifKey="robot" caption="RTAC executing IEC 61131-3 at 1ms scan rate" side="right"
-      />
+      <div className="flex items-start gap-6 my-6">
+        <p className="flex-1 text-sm text-slate-400 leading-relaxed">The RTAC runs IEC 61131-3 at configurable scan rates as fast as 1ms for protection-class timing. SELOGIC Control Equations allow direct integration of relay logic inside IEC programs. SEL function blocks expose relay inputs, output contacts, and settings directly from ST or LD code. The entire project — IEC programs, point database, communications config — compiles into a single .rdb file. That file can be version-controlled and deployed to the relay in under 60 seconds via Ethernet, no power cycle required.</p>
+        <GifCard gifKey="robot" caption="RTAC executing IEC 61131-3 at 1ms scan rate" />
+      </div>
 
       <div className="rounded-2xl p-5 my-6" style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.25)' }}>
         <p className="text-sm italic text-slate-300">"{ANALOGIES.rtac.text}"</p>
