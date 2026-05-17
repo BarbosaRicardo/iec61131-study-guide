@@ -144,7 +144,9 @@ END_IF;
    when gBreaker_Trip transitions — no additional ST code needed.
    The mapping handles the protocol side. *)`}</pre>
 
-      <GifCard gifKey="robot" caption="RTAC executing IEC 61131-3 at 1ms scan rate" side="right" />
+      <GifCard gifKey="robot" caption="RTAC executing IEC 61131-3 at 1ms scan rate" side="right"
+        body="The SEL RTAC executes IEC 61131-3 logic at scan rates down to 1ms — fast enough for protection-class applications. Unlike general-purpose PLCs where scan time varies with program size, the RTAC's deterministic scheduler guarantees fixed scan intervals. IEC 61131-3 function blocks written for the RTAC can directly read from DNP3, Modbus, and IEC 61850 protocol drivers in the same project."
+      />
 
       <div className="rounded-2xl p-5 my-6" style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.25)' }}>
         <p className="text-sm italic text-slate-300">"{ANALOGIES.rtac.text}"</p>

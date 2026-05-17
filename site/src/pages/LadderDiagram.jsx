@@ -145,7 +145,9 @@ CTUD — Count Up/Down (combined)
         In ladder diagram, if the same variable is driven by multiple output coils on different rungs, the last rung executed wins. Rungs are evaluated top to bottom, left to right. This is a known source of bugs when multiple rungs write the same output. The IEC standard permits this but warns against it. Use Set/Reset coils or refactor into a single controlling rung.
       </Callout>
 
-      <GifCard gifKey="cables" caption="RS-485 wiring vs. ladder wiring — same energy" side="right" />
+      <GifCard gifKey="cables" caption="RS-485 wiring vs. ladder wiring — same energy" side="right"
+        body="Ladder Diagram reads like an electrical relay schematic because it evolved from one. Contacts (normally open, normally closed) correspond to relay contacts; coils correspond to relay coils; rungs carry current left to right when conditions are met. Electricians unfamiliar with software can read Ladder directly — which was the design intent when PLCs replaced physical relay panels in the 1970s."
+      />
 
       <div className="rounded-2xl p-5 my-6" style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.25)' }}>
         <p className="text-sm italic text-slate-300">"{ANALOGIES.ld.text}"</p>
