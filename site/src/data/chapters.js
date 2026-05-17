@@ -1,5 +1,6 @@
 export const CHAPTERS = [
-  { id: 'intro', label: 'Ch 1: IEC 61131-3 Overview',        title: 'IEC 61131-3 Overview',              icon: 'BookOpen', path: '/',            next: 'datatypes' },
+  { id: 'home',  label: 'Home',                                  icon: 'Home',     path: '/' },
+  { id: 'intro', label: 'Ch 1: IEC 61131-3 Overview',        title: 'IEC 61131-3 Overview',              icon: 'BookOpen', path: '/intro',        next: 'datatypes' },
   { id: 'datatypes', label: 'Ch 2: Data Types & Variables',    title: 'Data Types & Variables',            icon: 'Binary', path: '/datatypes',   prev: 'intro',      next: 'st' },
   { id: 'st', label: 'Ch 3: Structured Text',           title: 'Structured Text (ST)',               icon: 'Code', path: '/st',          prev: 'datatypes',  next: 'ld' },
   { id: 'ld', label: 'Ch 4: Ladder Diagram',           title: 'Ladder Diagram (LD)',                icon: 'GitBranch', path: '/ld',          prev: 'st',         next: 'fbd' },
