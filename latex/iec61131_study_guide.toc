@@ -37,3 +37,4 @@
 \contentsline {section}{\numberline {10.2}Suggested Exercises}{25}{section.10.2}%
 \contentsline {appendix}{\chapternumberline {A}Quick Reference}{27}{appendix.A}%
 \contentsline {section}{\numberline {A.1}ST Operators Summary}{27}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Professional Certification Context}{27}{section.A.2}%

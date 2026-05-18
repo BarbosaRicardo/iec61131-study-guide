@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.9)  9 MAY 2026 15:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.9)  18 MAY 2026 12:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1463,7 +1463,7 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 
 ]
 LaTeX Font Info:    Trying to load font information for T1+phv on input line 21
-5.
+7.
 
 (/usr/local/texlive/2022/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
@@ -1473,7 +1473,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 2
-17.
+19.
 
 (/usr/local/texlive/2022/texmf-dist/tex/latex/psnfss/ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
@@ -1483,12 +1483,12 @@ Underfull \vbox (badness 3291) has occurred while \output is active []
  [5]
 [6]
 LaTeX Font Info:    Trying to load font information for T1+fvm on input line 24
-6.
+8.
  (/usr/local/texlive/2022/texmf-dist/tex/latex/bera/t1fvm.fd
 File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
 )
 LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
-(Font)              scaled to size 10.20007pt on input line 246.
+(Font)              scaled to size 10.20007pt on input line 248.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `fvm' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
@@ -1501,17 +1501,17 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 ]
 [8]
 LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
-(Font)              scaled to size 9.30756pt on input line 292.
+(Font)              scaled to size 9.30756pt on input line 294.
 LaTeX Font Info:    Font shape `T1/fvm/m/it' in size <10.95> not available
-(Font)              Font shape `T1/fvm/m/sl' tried instead on input line 293.
+(Font)              Font shape `T1/fvm/m/sl' tried instead on input line 295.
 LaTeX Font Info:    Font shape `T1/fvm/m/sl' will be
-(Font)              scaled to size 9.30756pt on input line 293.
+(Font)              scaled to size 9.30756pt on input line 295.
 LaTeX Font Info:    Font shape `T1/fvm/b/n' will be
-(Font)              scaled to size 9.30756pt on input line 296.
+(Font)              scaled to size 9.30756pt on input line 298.
  [9
 
 ]
-Overfull \hbox (4.34169pt too wide) in paragraph at lines 338--339
+Overfull \hbox (4.34169pt too wide) in paragraph at lines 340--341
 \T1/ppl/m/n/12 (-20) The fol-low-ing Struc-tured Text im-ple-ments a com-plete 
 mo-tor in-ter-lock with start/stop
  []
@@ -1523,7 +1523,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.341 (* Motor Interlock — 
+l.343 (* Motor Interlock — 
                              complete ST implementation *)
 The document does not appear to be in UTF-8 encoding.
 Try adding \UseRawInputEncoding as the first line of the file
@@ -1538,7 +1538,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.341 (* Motor Interlock — 
+l.343 (* Motor Interlock — 
                              complete ST implementation *)
 The document does not appear to be in UTF-8 encoding.
 Try adding \UseRawInputEncoding as the first line of the file
@@ -1554,7 +1554,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.372         (* Start failure timer — 
+l.374         (* Start failure timer — 
                                          trip if not confirmed in 5s *)
 The document does not appear to be in UTF-8 encoding.
 Try adding \UseRawInputEncoding as the first line of the file
@@ -1569,7 +1569,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.372         (* Start failure timer — 
+l.374         (* Start failure timer — 
                                          trip if not confirmed in 5s *)
 The document does not appear to be in UTF-8 encoding.
 Try adding \UseRawInputEncoding as the first line of the file
@@ -1586,97 +1586,22 @@ Alternatively, save the file in UTF-8 using your editor or another tool
 ] [17] [18
 
 ]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.476     {main() equivalent\\o
-                               ne global instance\\no return value};
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.476 ...main() equivalent\\one global instance\\n
-                                                  o return value};
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.482     {stateful\\m
-                      ultiple instances\\VAR\_OUTPUT not return};
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.482     {stateful\\multiple instances\\V
-                                          AR\_OUTPUT not return};
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.488     {stateless\\r
-                       eturns value\\same in = same out};
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.488     {stateless\\returns value\\s
-                                      ame in = same out};
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Overfull \hbox (153.14526pt too wide) in paragraph at lines 494--495
- [] 
- []
-
-
-Overfull \hbox (9.46053pt too wide) in paragraph at lines 507--508
+ [19]
+Overfull \hbox (9.46053pt too wide) in paragraph at lines 511--512
 \T1/ppl/m/n/12 (-20) IEC 61131-3 ex-plic-itly pro-hibits re-cur-sive calls. A F
 UNC-TION or FUNC-TION_BLOCK
  []
 
-[19] [20] [21
+[20] [21
 
 ] [22] [23
 
 ] [24
 
 ]
-Overfull \hbox (5.90933pt too wide) in paragraph at lines 574--575
+Overfull \hbox (5.90933pt too wide) in paragraph at lines 578--579
 []\T1/ppl/b/n/12 (-20) OpenPLC Run-time \T1/ppl/m/n/12 (-20) ([][]$\T1/fvm/m/n/
 12 https : / / openplcproject . com$[][]\T1/ppl/m/n/12 (-20) ) --- Open-source 
 IEC 61131-
@@ -1684,20 +1609,20 @@ IEC 61131-
 
 [25] [26
 
-] [27]
+] [27] [28]
 \tf@toc=\write6
 \openout6 = `iec61131_study_guide.toc'.
 
  (./iec61131_study_guide.aux)
 Package rerunfilecheck Info: File `iec61131_study_guide.out' has not changed.
-(rerunfilecheck)             Checksum: 9F384FE1CDD1C1C26B9BE568622F51CF;6577.
+(rerunfilecheck)             Checksum: 6630C787ED8F55F1F9819628D07C74E3;6809.
  ) 
 Here is how much of TeX's memory you used:
- 45039 strings out of 478268
- 1023575 string characters out of 5846348
- 1594926 words of memory out of 5000000
- 62182 multiletter control sequences out of 15000+600000
- 518712 words of font info for 183 fonts, out of 8000000 for 9000
+ 45058 strings out of 478268
+ 1023744 string characters out of 5846348
+ 1594780 words of memory out of 5000000
+ 62183 multiletter control sequences out of 15000+600000
+ 519511 words of font info for 194 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  85i,12n,96p,1017b,1896s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/t
@@ -1712,10 +1637,10 @@ texlive/2022/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/20
 22/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2022/texm
 f-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2022/texmf-dist/
 fonts/type1/urw/palatino/uplr8a.pfb>
-Output written on iec61131_study_guide.pdf (27 pages, 156670 bytes).
+Output written on iec61131_study_guide.pdf (28 pages, 158724 bytes).
 PDF statistics:
- 554 PDF objects out of 1000 (max. 8388607)
- 478 compressed objects within 5 object streams
- 174 named destinations out of 1000 (max. 500000)
- 48597 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 564 PDF objects out of 1000 (max. 8388607)
+ 487 compressed objects within 5 object streams
+ 176 named destinations out of 1000 (max. 500000)
+ 48605 words of extra memory for PDF output out of 51595 (max. 10000000)
 
