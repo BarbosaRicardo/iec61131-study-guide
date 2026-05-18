@@ -463,6 +463,7 @@ A double horizontal line (AND divergence) activates multiple branches simultaneo
 \section{POU Hierarchy}
 
 \begin{center}
+\resizebox{\textwidth}{!}{%
 \begin{tikzpicture}[
   node distance=1.5cm and 2.5cm,
   box/.style={draw, rounded corners=6pt, minimum width=3cm, minimum height=1cm,
@@ -472,26 +473,27 @@ A double horizontal line (AND divergence) activates multiple branches simultaneo
   % PROGRAM node
   \node[box, fill=iecblue!15, draw=iecblue] (prog)
     {\textcolor{iecblue}{PROGRAM}};
-  \node[below=0.4cm of prog, font=\small, text=gray] (prog-note)
+  \node[below=0.4cm of prog, font=\small, text=gray, text width=3cm, align=center] (prog-note)
     {main() equivalent\\one global instance\\no return value};
 
   % FUNCTION_BLOCK node
   \node[box, fill=iecorange!15, draw=iecorange, right=of prog] (fb)
     {\textcolor{iecorange}{FUNCTION\_BLOCK}};
-  \node[below=0.4cm of fb, font=\small, text=gray] (fb-note)
+  \node[below=0.4cm of fb, font=\small, text=gray, text width=3cm, align=center] (fb-note)
     {stateful\\multiple instances\\VAR\_OUTPUT not return};
 
   % FUNCTION node
   \node[box, fill=iecgreen!15, draw=iecgreen, right=of fb] (fn)
     {\textcolor{iecgreen}{FUNCTION}};
-  \node[below=0.4cm of fn, font=\small, text=gray] (fn-note)
+  \node[below=0.4cm of fn, font=\small, text=gray, text width=3cm, align=center] (fn-note)
     {stateless\\returns value\\same in = same out};
 
   % Arrows
   \draw[arr] (prog.east) -- node[above, font=\small]{calls / instantiates} (fb.west);
   \draw[arr] (fb.east)   -- node[above, font=\small]{calls} (fn.west);
   \draw[arr, bend left=40] (prog.north) to node[above, font=\small]{calls} (fn.north);
-\end{tikzpicture}
+\end{tikzpicture}%
+}
 \end{center}
 
 \section{FUNCTION vs. FUNCTION\_BLOCK}
