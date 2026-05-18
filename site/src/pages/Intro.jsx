@@ -35,7 +35,7 @@ export default function Intro() {
         </ul>
       </Callout>
 
-      <GifCard gifKey="courseHero" caption="Draw some rungs, connect some coils. Control a factory." side="right" tooltip="Ladder logic looks like an electrical schematic because it evolved from one. IEC 61131-3 then standardized 5 PLC programming languages — just in case rungs felt too intuitive and you wanted options." />
+      <GifCard gifKey="courseHero" caption="Draw some rungs, connect some coils. Control a factory." side="right" tooltip="Ladder logic looks like an electrical schematic because it evolved from one. IEC 61131-3 then standardized 5 PLC programming languages — just in case rungs felt too intuitive and you wanted options." body="IEC 61131-3 unifies PLC programming across vendors. A Ladder Diagram written for an Allen-Bradley follows the same logic structure as one written for a Siemens or SEL RTAC. The language syntax differs per platform — the concepts don't. Master the concepts once; learn the syntax per device." />
 
       <h2 className="text-xl font-bold text-blue-400 mt-8 mb-3">Why It Matters for RTAC Work</h2>
       <p>

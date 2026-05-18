@@ -167,7 +167,7 @@ Verify:
         Implement a substation equipment startup sequence in SFC (or as a CASE state machine in ST if your platform doesn't support native SFC). The sequence: (1) verify all permissives, (2) close bus tie breaker, (3) wait 2 seconds, (4) energize bus, (5) verify bus voltage, (6) signal ready. Include a timeout at each step that goes to a fault state if the step doesn't complete in the allotted time.
       </p>
 
-      <GifCard gifKey="done" caption="Commissioning complete, all tags green" side="right" />
+      <GifCard gifKey="done" caption="Commissioning complete, all tags green" side="right" body="Six exercises across six language domains: LD contacts and coils, ST data manipulation, FBD signal routing, SFC state machines, POU structuring, and RTAC-specific SELOGIC. Engineers who complete all six have touched every pattern they will encounter in substation automation work." />
 
       <div className="rounded-2xl p-5 my-6" style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.25)' }}>
         <p className="text-sm italic text-slate-300">"{ANALOGIES.lab.text}"</p>
