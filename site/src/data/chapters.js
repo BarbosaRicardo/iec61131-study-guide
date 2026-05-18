@@ -38,3 +38,57 @@ export const FUN_FACTS = [
   { text: "IEC 61131-3 STRING types are fixed-length. STRING[20] holds 20 characters. Attempting to assign a 25-character string to a STRING[20] variable truncates silently on most platforms. There is no overflow exception. The extra characters just vanish.", icon: "Scissors" },
   { text: "A Function Block in IEC 61131-3 has internal state. The same FB type can be instantiated many times, and each instance maintains its own state. It is literally object-oriented programming — just with ladder rungs instead of inheritance hierarchies.", icon: "Package" },
 ]
+
+export const FIELD_STORIES = [
+  {
+    title: "The TON Timer That Reset Itself",
+    icon: "AlertTriangle",
+    story: "A water pump sequencing program used a TON timer to delay the next pump start by 30 seconds. During commissioning, the scan cycle took slightly longer than expected due to heavy HMI polling. The timer's IN input was cycling TRUE/FALSE on every scan because the enabling condition depended on a mid-scan tag update. The timer never reached 30 seconds — it reset on every other scan. The pump sequencer appeared to work in testing (lighter load) but failed in production. The fix: latch the enabling condition into a separate BOOL before evaluating the timer. One extra line of Structured Text. Two days of debugging."
+  },
+  {
+    title: "The RETAIN Variable That Survived",
+    icon: "Ghost",
+    story: "A packaging machine PLC used RETAIN variables to persist batch counts across power cycles. During a firmware upgrade, the RETAIN memory map changed — the old retained values were still present but now mapped to different variables. After the upgrade, the batch counter started at 47,239 instead of zero. The machine ran 47,239 batches worth of labels before anyone noticed the counter was wrong. The vendor's migration guide mentioned clearing RETAIN memory before firmware updates. Nobody read it. The lesson: RETAIN variables are not free — they survive reboots, firmware upgrades, and your assumptions."
+  },
+  {
+    title: "The Codesys Global Variable That Everyone Wrote To",
+    icon: "AlertOctagon",
+    story: "A large CODESYS project had a global variable called 'g_EmergencyStop' used by 14 different function blocks. One FB set it TRUE under a specific fault condition. Another FB set it FALSE during its normal operation — overwriting the emergency stop request. The race depended on program organization order. In testing, program order was different from production. The emergency stop appeared to work in test. In production, it was silently cleared 40ms after being set. The fix: make emergency stop RETAIN and only allow it to be cleared by a dedicated reset routine. Never let multiple FBs own the same global write."
+  },
+  {
+    title: "The Integer Division That Lost the Decimal",
+    icon: "Binary",
+    story: "A flow calculation in Structured Text divided two INT variables: flow_rate := total_volume / elapsed_time. In IEC 61131-3, INT / INT returns INT — the decimal is truncated, not rounded. At low flow rates (e.g., 3 liters over 4 seconds), the result was 0. The flow totalizer showed zero for 20% of readings. The process engineer thought the sensor was intermittent. The actual fix: cast to REAL before dividing. One REAL() function call. The sensor was fine. The code was wrong. Three weeks of sensor replacement work was wasted."
+  },
+  {
+    title: "The SFC Step That Never Advanced",
+    icon: "Archive",
+    story: "A Sequential Function Chart controlled a chemical dosing sequence. Step 4 waited for a confirmation signal before advancing. During a sensor calibration, the confirmation sensor was temporarily bypassed. The bypass was removed but the bypassed state was written to a RETAIN variable that persisted through the PLC power cycle. The SFC waited forever at Step 4 in every subsequent run. The machine appeared to start normally, then hang silently. Operators cycled power repeatedly. Each power cycle restored the retained bypass state. The issue was found two days later when someone read the RETAIN variable list in the PLC monitor."
+  },
+]
+
+export const CHAPTER_HOOKS = {
+  intro:       "You need to write a control program that runs identically on a Siemens S7, a Beckhoff CX, and a SEL RTAC. IEC 61131-3 is supposed to make that possible. In practice, what are the three things that will definitely break between platforms?",
+  datatypes:   "You assign a REAL value of 3.14159 to an INT variable in Structured Text. What actually gets stored — and what happens to the decimal part? Does the compiler warn you?",
+  st:          "Structured Text looks like Pascal. It runs on PLCs. What does that mean for how you think about memory, scan cycles, and side effects — things you'd never worry about in Python?",
+  ld:          "Ladder Diagram was designed so electricians could read PLC code without learning programming. In 2026, is that still a valid design goal — or has it become a liability?",
+  fbd:         "A Function Block Diagram looks cleaner than Structured Text for a PID loop. What does it cost you in debuggability and version control?",
+  sfc:         "A Sequential Function Chart hangs at Step 3 in production. The transition condition is TRUE. The step has been active for 6 hours. What's the first thing you check?",
+  pou:         "What's the difference between a Function and a Function Block in IEC 61131-3 — and why does that difference matter when you need to control a pump that has state?",
+  rtac:        "The SEL RTAC uses IEC 61131-3 with a 1ms scan cycle. You write a loop that iterates 1,000 times. What happens to the scan cycle — and what does the RTAC do about it?",
+  troubleshoot:"A PLC program that worked fine in the CODESYS simulator fails on the real hardware. The logic is identical. What are the three most likely causes of the divergence?",
+  lab:         "Before you write a single line of IEC 61131-3 code for a real PLC: what three things must you know about the target hardware that the simulator doesn't care about?",
+}
+
+export const CHAPTER_RETRIEVAL = {
+  intro:       { q: "What are the five programming languages defined by IEC 61131-3?", a: "Ladder Diagram (LD), Function Block Diagram (FBD), Structured Text (ST), Instruction List (IL), Sequential Function Chart (SFC)" },
+  datatypes:   { q: "In IEC 61131-3, what is the result of INT divided by INT when the result is not a whole number?", a: "The decimal is truncated — no rounding, no warning. Cast to REAL before dividing to preserve precision." },
+  st:          { q: "What does the IEC 61131-3 RETAIN qualifier do to a variable?", a: "Preserves its value across a power cycle — stored in non-volatile memory" },
+  ld:          { q: "What does a normally-closed contact do in Ladder Diagram when the coil it references is FALSE?", a: "It passes power (conducts) — it passes when the referenced bit is 0, blocks when the bit is 1" },
+  fbd:         { q: "In IEC 61131-3, what is the difference between a Function and a Function Block?", a: "A Function has no internal state; same inputs always produce same outputs. A Function Block has persistent internal state between calls." },
+  sfc:         { q: "In a Sequential Function Chart, what conditions must be true for a transition to fire?", a: "The preceding step must be active AND the transition condition must evaluate to TRUE" },
+  pou:         { q: "What does POU stand for in IEC 61131-3?", a: "Program Organization Unit — the three types are Program, Function, and Function Block" },
+  rtac:        { q: "What IEC 61131-3 timer type delays a rising edge — and what happens if the IN signal goes FALSE before PT elapses?", a: "TON (Timer On-Delay) — if IN goes FALSE before PT, the timer resets to zero and Q stays FALSE" },
+  troubleshoot:{ q: "What is a 'scan cycle' in a PLC — and what happens if your code takes longer than one scan cycle?", a: "One pass through all program logic. If it overruns, the watchdog timer triggers a PLC fault/stop on most platforms." },
+  lab:         { q: "Name a free IEC 61131-3 development environment used for practice and learning.", a: "CODESYS — available free for development; runtime licenses required for production deployment" },
+}

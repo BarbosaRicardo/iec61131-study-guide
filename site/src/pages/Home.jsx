@@ -1,11 +1,38 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { BookOpen, Zap, Award, Clock, ArrowRight, Code2, Cpu, Settings, LayoutGrid } from 'lucide-react'
+import { BookOpen, Zap, Award, Clock, ArrowRight, Code2, Cpu, Settings, LayoutGrid, CheckCircle2, Binary, Code, GitBranch, Share2, GitGraph, Package, Wrench, FlaskConical } from 'lucide-react'
 import { useProgress } from '../hooks/useProgress'
 import { CHAPTERS } from '../data/chapters'
 import GifCard from '../components/GifCard'
 import TrainingPanel from '../components/TrainingPanel'
+
+const COMMIT_KEY = 'iec61131_committed'
+const LAST_VISIT_KEY = 'iec61131_last_visit'
+const BANNER_SHOWN_KEY = 'iec61131_banner_shown'
+
+function getFreshStartMessage() {
+  const lastVisit = parseInt(localStorage.getItem(LAST_VISIT_KEY) || '0', 10)
+  const lastBanner = parseInt(localStorage.getItem(BANNER_SHOWN_KEY) || '0', 10)
+  const now = Date.now()
+  const daysSince = (now - lastVisit) / 86400000
+  const hoursSinceBanner = (now - lastBanner) / 3600000
+  if (hoursSinceBanner < 48) return null
+  const d = new Date()
+  const isMonday = d.getDay() === 1
+  const isFirstOfMonth = d.getDate() === 1
+  if (daysSince >= 5 || isMonday || isFirstOfMonth) {
+    localStorage.setItem(BANNER_SHOWN_KEY, String(now))
+    if (isMonday) return "New week — engineers who study consistently master protocols 3× faster."
+    if (isFirstOfMonth) return "New month, fresh start — what will you finish before it ends?"
+    return "Welcome back — pick up where you left off. Your IEC 61131-3 progress is exactly where you left it."
+  }
+  return null
+}
+
+const ICON_MAP = {
+  BookOpen, Binary, Code, GitBranch, Share2, GitGraph, Package, Zap, Wrench, FlaskConical,
+}
 
 const STATS = [
   { icon: BookOpen,    label: '10 Chapters', sub: 'Overview to lab' },
@@ -22,15 +49,51 @@ const HERO_OPTIONS = [
   { id: 'ZJaoGDlUbrBlP67LEn',        caption: `PLC scan cycle complete. No faults. Outputs written on time.`,    tooltip: `A PLC runs its scan cycle — read inputs, execute program, write outputs — typically every 1 to 20 milliseconds. IEC 61131-3 guarantees deterministic execution. No garbage collection, no OS scheduler preemption, no mystery pauses. Reliable cycles, every time.` },
 ]
 export default function Home() {
-  const { overallProgress, reset } = useProgress()
+  const { overallProgress, getChapterStatus, reset } = useProgress()
   const [heroIdx] = useState(() => Math.floor(Math.random() * HERO_OPTIONS.length))
+  const [committed, setCommitted] = useState(() => !!localStorage.getItem(COMMIT_KEY))
+  const [freshMsg] = useState(() => getFreshStartMessage())
+  const [streak] = useState(() => {
+    try {
+      const today = new Date().toISOString().split('T')[0]
+      const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0]
+      const lastDate = localStorage.getItem('iec61131_streak_date') || ''
+      const cur = parseInt(localStorage.getItem('iec61131_streak') || '0', 10)
+      if (lastDate === today) return cur
+      const next = lastDate === yesterday ? cur + 1 : 1
+      localStorage.setItem('iec61131_streak', String(next))
+      localStorage.setItem('iec61131_streak_date', today)
+      return next
+    } catch { return 1 }
+  })
   const prog = overallProgress()
+
+  // Track last visit for Fresh Start Effect
+  useState(() => { localStorage.setItem(LAST_VISIT_KEY, String(Date.now())) })
+
+  const chaptersOnly = CHAPTERS.filter(c => c.id !== 'home' && c.id !== 'flashcards')
 
   const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.08 } } }
   const item = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }
 
+  function handleCommit() {
+    localStorage.setItem(COMMIT_KEY, '1')
+    setCommitted(true)
+  }
+
   return (
     <motion.div variants={container} initial="hidden" animate="show" className="max-w-4xl mx-auto py-10 px-4 space-y-10">
+
+      {/* Fresh Start Effect banner */}
+      {freshMsg && (
+        <motion.div variants={item}
+          className="rounded-xl px-4 py-3 text-sm flex items-center gap-3"
+          style={{ background: 'rgba(45,212,191,0.07)', border: '1px solid rgba(45,212,191,0.2)' }}
+        >
+          <span style={{ color: '#2dd4bf' }}>↺</span>
+          <span style={{ color: 'rgba(45,212,191,0.8)' }}>{freshMsg}</span>
+        </motion.div>
+      )}
 
       {/* Hero */}
       <motion.div variants={item} className="text-center">
@@ -46,10 +109,28 @@ export default function Home() {
             </p>
             <div className="flex gap-3 mt-6">
               <Link to="/intro" className="btn-primary flex items-center gap-2">
-                Start Learning <ArrowRight size={16} />
+                {prog.visited > 0 ? 'Continue Learning' : 'Start Learning'} <ArrowRight size={16} />
               </Link>
               {prog.pct > 0 && <Link to="/lab" className="btn-secondary">Practice Lab</Link>}
             </div>
+
+            {!committed && prog.visited === 0 && (
+              <button
+                onClick={handleCommit}
+                className="mt-4 flex items-center gap-2 text-sm transition-all hover:opacity-90"
+                style={{ color: 'rgba(96,165,250,0.6)' }}
+              >
+                <div className="w-4 h-4 rounded border flex items-center justify-center flex-shrink-0"
+                  style={{ borderColor: 'rgba(96,165,250,0.4)' }} />
+                I commit to finishing this course
+              </button>
+            )}
+            {committed && prog.visited === 0 && (
+              <div className="mt-4 flex items-center gap-2 text-sm" style={{ color: 'rgba(96,165,250,0.55)' }}>
+                <CheckCircle2 size={14} style={{ color: '#60a5fa' }} />
+                <span>Committed. Chapter 1 is waiting.</span>
+              </div>
+            )}
           </div>
           <div className="flex-shrink-0">
             <GifCard gifId={HERO_OPTIONS[heroIdx].id} caption={HERO_OPTIONS[heroIdx].caption} tooltip={HERO_OPTIONS[heroIdx].tooltip} side="right" />
@@ -57,23 +138,47 @@ export default function Home() {
         </div>
       </motion.div>
 
-      {/* Progress */}
-      {prog.pct > 0 && (
-        <motion.div variants={item} className="card">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="font-bold text-slate-100">Your Progress</h3>
-            <button onClick={reset} className="text-xs text-slate-400 hover:text-red-400 transition-colors">Reset</button>
+      {/* Progress — always shown */}
+      <motion.div variants={item} className="rounded-2xl p-5" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
+        {streak > 1 && (
+          <div className="flex items-center gap-2 mb-3 pb-3" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+            <span>🔥</span>
+            <span className="font-bold text-sm" style={{ color: '#f97316' }}>{streak}-day streak</span>
+            <span className="text-xs" style={{ color: 'rgba(249,115,22,0.45)' }}>
+              {streak >= 7 ? '— elite consistency' : streak >= 3 ? '— keep the chain going' : "— don't break it"}
+            </span>
           </div>
-          <div className="h-3 rounded-full overflow-hidden mb-2" style={{ background: 'rgba(255,255,255,0.08)' }}>
-            <motion.div className="h-full bg-mblue-600 rounded-full" initial={{ width: 0 }} animate={{ width: `${prog.pct}%` }} transition={{ duration: 0.8, ease: 'easeOut' }} />
+        )}
+        {prog.visited === 0 ? (
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="font-bold text-slate-200 mb-1">Your Learning Journey</div>
+              <div className="text-sm text-slate-500">10 chapters · ~5 hours · starts with one click</div>
+            </div>
+            <Link to="/intro" className="flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-xl transition-all"
+              style={{ background: 'rgba(45,212,191,0.1)', color: '#2dd4bf', border: '1px solid rgba(45,212,191,0.2)' }}>
+              Begin Ch 1 <ArrowRight size={14} />
+            </Link>
           </div>
-          <div className="flex justify-between text-sm text-slate-500">
-            <span>{prog.visited}/{prog.total} chapters read</span>
-            <span className="font-bold text-mblue-600">{prog.pct}% complete</span>
-            <span>{prog.quizzes}/{prog.total} quizzes passed</span>
-          </div>
-        </motion.div>
-      )}
+        ) : (
+          <>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="font-bold text-slate-100">
+                {prog.pct >= 80 ? 'Almost there — keep going' : prog.pct >= 40 ? "Good momentum — don't stop now" : "You've started — finish what you started"}
+              </h3>
+              <button onClick={reset} className="text-xs text-slate-600 hover:text-red-400 transition-colors">Reset</button>
+            </div>
+            <div className="h-3 rounded-full overflow-hidden mb-2" style={{ background: 'rgba(255,255,255,0.08)' }}>
+              <motion.div className="h-full rounded-full" style={{ background: 'linear-gradient(90deg, #2dd4bf, #06b6d4)' }} initial={{ width: 0 }} animate={{ width: `${prog.pct}%` }} transition={{ duration: 0.8, ease: 'easeOut' }} />
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-slate-500">{prog.visited}/{prog.total} chapters read</span>
+              <span className="font-bold" style={{ color: '#2dd4bf' }}>{prog.pct}% complete</span>
+              <span className="text-slate-500">{prog.quizzes}/{prog.total} quizzes passed</span>
+            </div>
+          </>
+        )}
+      </motion.div>
 
       {/* Stats */}
       <motion.div variants={item} className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -108,21 +213,55 @@ export default function Home() {
         </div>
       </motion.div>
 
-      {/* Chapter grid */}
+      {/* Chapter grid — 4-dot progress */}
       <motion.div variants={item}>
-        <h2 className="text-xl font-bold text-mblue-600 mb-4">Chapters</h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold text-mblue-600">Chapters</h2>
+          {prog.visited > 0 && (
+            <span className="text-xs text-slate-500">
+              {chaptersOnly.filter(ch => getChapterStatus(ch.id).visited).length} of {chaptersOnly.length} visited
+            </span>
+          )}
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {CHAPTERS.filter(c => c.id !== 'home' && c.id !== 'flashcards').map((ch) => (
-            <Link key={ch.id} to={ch.path} className="card flex items-center gap-4 hover:border-mblue-200 hover:shadow-md transition-all group">
-              <div className="w-10 h-10 rounded-xl bg-mblue-50 flex items-center justify-center flex-shrink-0">
-                <BookOpen size={20} className="text-mblue-600" />
-              </div>
-              <div className="flex-1">
-                <div className="font-semibold text-slate-100 group-hover:text-mblue-600 transition-colors">{ch.label}</div>
-              </div>
-              <ArrowRight size={16} className="text-slate-300 group-hover:text-mblue-400 transition-colors" />
-            </Link>
-          ))}
+          {chaptersOnly.map((ch) => {
+            const ChIcon = ICON_MAP[ch.icon] || BookOpen
+            const status = getChapterStatus(ch.id)
+            const allFour = status.level1Passed && status.level2Passed && status.level3Passed && status.level4Passed
+            return (
+              <Link key={ch.id} to={ch.path} className="card flex items-center gap-4 hover:border-mblue-200 hover:shadow-md transition-all group">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                  style={{
+                    background: allFour ? 'rgba(74,222,128,0.15)' : status.visited ? 'rgba(45,212,191,0.12)' : 'rgba(59,130,246,0.08)',
+                  }}>
+                  <ChIcon size={20} style={{ color: allFour ? '#4ade80' : status.visited ? '#2dd4bf' : '#60a5fa' }} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-slate-100 group-hover:text-mblue-600 transition-colors truncate">{ch.label}</div>
+                  {status.visited && (
+                    <div className="flex items-center gap-1 mt-1">
+                      {[
+                        { key: 'level1Passed', color: '#34d399' },
+                        { key: 'level2Passed', color: '#fbbf24' },
+                        { key: 'level3Passed', color: '#f87171' },
+                        { key: 'level4Passed', color: '#4ade80' },
+                      ].map((dot) => (
+                        <div key={dot.key} className="w-1.5 h-1.5 rounded-full"
+                          style={{ background: status[dot.key] ? dot.color : 'rgba(255,255,255,0.12)' }} />
+                      ))}
+                      <span className="text-xs ml-1" style={{ color: 'rgba(255,255,255,0.3)' }}>
+                        {allFour ? 'complete' : 'in progress'}
+                      </span>
+                    </div>
+                  )}
+                </div>
+                {allFour
+                  ? <CheckCircle2 size={16} style={{ color: '#4ade80' }} className="flex-shrink-0" />
+                  : <ArrowRight size={16} className="text-slate-300 group-hover:text-mblue-400 transition-colors flex-shrink-0" />
+                }
+              </Link>
+            )
+          })}
         </div>
       </motion.div>
 
@@ -131,11 +270,21 @@ export default function Home() {
         <TrainingPanel course="iec61131" />
       </motion.div>
 
-      {/* Footer */}
+      {/* Footer motivator — loss framing when in progress */}
       <motion.div variants={item} className="text-center py-4">
-        <p className="text-slate-400 text-sm italic">
-          "Ladder logic is just electrical drawings that happen to control factories. You've got this."
-        </p>
+        {prog.visited > 0 && prog.pct < 100 ? (
+          <p className="text-slate-400 text-sm italic">
+            "{chaptersOnly.length - prog.visited} chapters left to finish. Don't leave them unread."
+          </p>
+        ) : prog.pct === 100 ? (
+          <p className="text-slate-400 text-sm italic">
+            "You finished. Five languages, one standard — you now program any PLC on the planet."
+          </p>
+        ) : (
+          <p className="text-slate-400 text-sm italic">
+            "Ladder logic is just electrical drawings that happen to control factories. You've got this."
+          </p>
+        )}
       </motion.div>
     </motion.div>
   )
