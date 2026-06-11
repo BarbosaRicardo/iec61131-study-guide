@@ -157,6 +157,14 @@ END_IF;
       <Callout type="pro" title="Build on a Supported RTAC Firmware Version">
         Pick one firmware version for a project and do not change it during development. Upgrading firmware mid-project can change FB signatures, data model behavior, and compilation settings. Test firmware upgrades in a lab environment against your full project before applying to a production device. This is not optional advice.
       </Callout>
+      {/* RTAC-NOTES — survey/orphan audit 2026-06-11 */}
+      <div className="card mb-6">
+        <h3 className="text-lg font-bold text-white mb-2">RTAC Platform Notes: Hardware, WAMS, and GOOSE Supervision</h3>
+        <p className="text-sm text-slate-300 leading-relaxed mb-2">Hardware: the SEL-3530 is the classic RTAC; the <b>SEL-3355</b> is the rack-mount compute platform frequently deployed as an RTAC for heavy substation automation.</p>
+        <p className="text-sm text-slate-300 leading-relaxed mb-2">In a wide-area monitoring system (WAMS), the RTAC acts as a <b>PMU data aggregator</b> — its PDC client driver receives synchrophasor streams from PMUs and relays, concentrates them, and forwards upstream.</p>
+        <p className="text-sm text-slate-300 leading-relaxed mb-2">For IEC 61850 GOOSE inputs, the subscription is supervised by the message\u2019s <b>AllowedLivetime / MaxTime</b>: if the next GOOSE doesn\u2019t arrive within that window, the RTAC marks the input stale and your logic should treat it as lost.</p>
+      </div>
+
 
       <QuizLevels chapterId="rtac" />
 

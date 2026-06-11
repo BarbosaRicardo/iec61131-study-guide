@@ -125,6 +125,13 @@ rProcessVar ──────  CTRL_PID.X
       <Callout type="pro" title="FBD for Documentation">
         A well-drawn FBD diagram is nearly self-documenting. When presenting control logic to a customer, a process engineer, or a regulator who doesn't write code, an FBD diagram communicates the signal flow without requiring any programming background. Print it, paste it in the design document, and watch the questions become more specific.
       </Callout>
+      {/* CFC — survey/orphan audit 2026-06-11 */}
+      <div className="card mb-6">
+        <h3 className="text-lg font-bold text-white mb-2">CFC: The Free-Form Sibling (What SEL Actually Calls It)</h3>
+        <p className="text-sm text-slate-300 leading-relaxed mb-2">ACSELERATOR RTAC and most modern IDEs offer <b>CFC — Continuous Function Chart</b> — which is FBD without the rigid network grid: you place blocks anywhere on the canvas, wire them freely, and the editor computes execution order (which you can override per block). Everything you know from FBD transfers directly; CFC just removes the layout constraints.</p>
+        <p className="text-sm text-slate-300 leading-relaxed mb-2">The company skills matrix (Week 4, Program Creation) names <b>ST, LD, and CFC</b> as the three working languages on the RTAC. When the survey says CFC, picture this chapter\u2019s diagrams with free placement and explicit execution-order numbers.</p>
+      </div>
+
 
       <QuizLevels chapterId="fbd" />
 

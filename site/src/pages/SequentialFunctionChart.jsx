@@ -143,6 +143,12 @@ export default function SequentialFunctionChart() {
         <p className="flex-1 text-sm text-slate-400 leading-relaxed">SFC execution is stateful — the chart remembers which step it's in across scan cycles. Each active step executes its actions every scan while it's active. Transitions are evaluated every scan; when one goes TRUE, the current step deactivates and the next activates. Parallel branches use a double horizontal line to split into multiple simultaneously active steps; convergence uses another double line to wait for all branches before continuing. A stuck transition with no forcing mechanism means the SFC halts there permanently.</p>
         <GifCard gifKey="thinking" caption="Tracing an SFC with a parallel branch and a stored action" />
       </div>
+      {/* STEP-VARS — survey/orphan audit 2026-06-11 */}
+      <div className="card mb-6">
+        <h3 className="text-lg font-bold text-white mb-2">Step Variables: Asking a Step If It Is Active</h3>
+        <p className="text-sm text-slate-300 leading-relaxed mb-2">Every SFC step exposes an implicit Boolean — <code>StepName.X</code> — that is TRUE while the step is active, plus <code>StepName.T</code> for time-in-step. Action qualifiers and interlocks read these constantly; they are how the rest of the program knows where the sequence is.</p>
+      </div>
+
 
       <QuizLevels chapterId="sfc" />
 

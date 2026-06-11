@@ -78,6 +78,12 @@ export default function Intro() {
       <Callout type="field" title="The RTAC Reality Check">
         The SEL RTAC supports Structured Text as its primary IEC 61131-3 language. LD and FBD are available for some use cases. SFC integration depends on firmware version. IL is not supported and never will be. Focus your study time on ST and FBD — these are what you will write in the field.
       </Callout>
+      {/* ANNEX-A — survey/orphan audit 2026-06-11 */}
+      <div className="card mb-6">
+        <h3 className="text-lg font-bold text-white mb-2">Where the Formal Definitions Live</h3>
+        <p className="text-sm text-slate-300 leading-relaxed mb-2">The third edition of the standard defines the formal textual grammar for the languages in <b>Annex A</b> — the normative reference when two vendors disagree about what is legal syntax. You will never read it for fun, but knowing it exists wins arguments.</p>
+      </div>
+
 
       <QuizLevels chapterId="intro" />
 

@@ -224,6 +224,13 @@ bMotor2_Running := Motor2.bMotorRun;`}</pre>
         <p className="text-sm italic text-slate-300">"{ANALOGIES.pou.text}"</p>
         <p className="text-xs text-blue-400 mt-2">— {ANALOGIES.pou.author}</p>
       </div>
+      {/* POU-EXTRAS — survey/orphan audit 2026-06-11 */}
+      <div className="card mb-6">
+        <h3 className="text-lg font-bold text-white mb-2">Function Returns, Access Control, and Methods</h3>
+        <p className="text-sm text-slate-300 leading-relaxed mb-2">A Function returns its value by assigning to its own name: inside <code>FUNCTION Scale : REAL</code>, the last line is <code>Scale := result;</code>.</p>
+        <p className="text-sm text-slate-300 leading-relaxed mb-2">The 3rd-edition OOP extensions add access specifiers — <code>PRIVATE</code> hides a variable or method from everything outside its POU — and methods on function blocks, called with dot notation: <code>InstanceName.MethodName(params)</code>.</p>
+      </div>
+
 
       <QuizLevels chapterId="pou" />
 

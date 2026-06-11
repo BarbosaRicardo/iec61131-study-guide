@@ -167,6 +167,12 @@ rReal := STRING_TO_REAL(sStr); (* Parse string as float *)`}</pre>
         <p className="text-sm italic text-slate-300">"{ANALOGIES.datatypes.text}"</p>
         <p className="text-xs text-blue-400 mt-2">— {ANALOGIES.datatypes.author}</p>
       </div>
+      {/* ARRAY-SYNTAX — survey/orphan audit 2026-06-11 */}
+      <div className="card mb-6">
+        <h3 className="text-lg font-bold text-white mb-2">Array Access Syntax</h3>
+        <p className="text-sm text-slate-300 leading-relaxed mb-2">Arrays are declared as <code>MyArr : ARRAY[0..9] OF INT;</code> and accessed with square brackets: <code>MyArr[5]</code> reads the element at index 5. Indices run over the declared range — they do not have to start at zero, and off-range access is a runtime fault, not a quiet wrap-around.</p>
+      </div>
+
 
       <QuizLevels chapterId="datatypes" />
 

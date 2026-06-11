@@ -214,6 +214,12 @@ wResult := SHR(wA, 2);  (* Shift right 2 bits *)`}</pre>
       <Callout type="pro" title="Use Comments Aggressively">
         ST code without comments is maintenance debt. Power system code runs for 20+ years. The engineer who reads your code in 2044 may not have access to any context about why that trip threshold is 95% instead of 100%. Comment every non-obvious decision. Your future self is also in this audience.
       </Callout>
+      {/* REPEAT-UNTIL — survey/orphan audit 2026-06-11 */}
+      <div className="card mb-6">
+        <h3 className="text-lg font-bold text-white mb-2">The Loop You Forgot Exists: REPEAT…UNTIL</h3>
+        <p className="text-sm text-slate-300 leading-relaxed mb-2">Besides <code>FOR</code> and <code>WHILE</code>, ST has <code>REPEAT ... UNTIL condition END_REPEAT</code> — the body always executes at least once, exactly like C\u2019s do...while. Use it when the exit test depends on something the body computes.</p>
+      </div>
+
 
       <QuizLevels chapterId="st" />
 
